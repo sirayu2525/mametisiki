@@ -1,50 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>ハム大まめちしき</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-  <header>
-    <h1>ハム大まめちしき</h1>
-  </header>
+{% extends 'base.html' %}
 
-  <main>
-    <section class="articles">
-      <h2>新着まめちしき</h2>
-      <div class="article-grid">
-        {% for article in new_articles %}
-          <article>
-            <a href="{{ url_for('article', article_id=article.id) }}">
-              <img src="{{ article.image_url }}" alt="{{ article.title }}"> <div class="article-info">
-                <h3>{{ article.title }}</h3>
-                <p>{{ article.created_at.strftime('%Y-%m-%d') }}</p>
-              </div>
-            </a>
-          </article>
-        {% endfor %}
-      </div>
-    </section>
+{% block title %}トップ{% endblock %}
 
-    <aside class="sidebar">
-      <h2>週間人気ランキング</h2>
-      <ol>
-        {% for article in trend_articles %}
-          <li><a href="{{ url_for('article', article_id=article.id) }}">{{ article.title }}</a></li>
-        {% endfor %}
-      </ol>
-
-      <h2>タグ一覧</h2>
-      <ul>
-        {% for tag in tags %}
-          <li><a href="{{ url_for('tag', tag_id=tag.id) }}">{{ tag.name }}</a></li>
-        {% endfor %}
-      </ul>
-    </aside>
-  </main>
-
-  <footer>
-    <p>&copy; 2024 ハム大まめちしき</p>
-  </footer>
-</body>
-</html>
+{% block content %}
+  <h2>新着豆知識</h2>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for article in new_articles %}
+      <article class="col">
+        <div class="card">
+          <a href="{{ url_for('article', article_id=article.id) }}">
+            <img src="{{ article.image_url }}" class="card-img" alt="{{ article.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text"><small class="text-muted">{{ article.created_at.strftime('%Y-%m-%d') }}</small></p>
+            </div>
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% endblock %}

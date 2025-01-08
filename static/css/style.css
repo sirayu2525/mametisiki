@@ -10,6 +10,12 @@
     border: 1px solid #ccc;
     padding: 10px;
   }
+
+  .card-img-top {
+    width: 100%;
+    height: auto; /* 高さを自動調整 */
+    object-fit: contain;
+  }
   
   article img {
     width: 100%;

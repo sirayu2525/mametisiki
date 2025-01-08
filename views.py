@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app, db
 from models import Article, Tag
 
@@ -13,6 +13,14 @@ def index():
 def article(article_id):
     article = Article.query.get_or_404(article_id)
     return render_template('article.html', article=article)
+
+@app.route('/articles')
+def article_list():
+    page = request.args.get('page', 1, type=int)
+    articles = Article.query.order_by(Article.created_at.desc()).paginate(page=page, per_page=10)
+    trend_articles = Article.query.order_by(Article.created_at.desc()).limit(5).all()  # 週間人気ランキング (仮実装)
+    tags = Tag.query.all()  # タグ一覧
+    return render_template('article_list.html', articles=articles, trend_articles=trend_articles, tags=tags)
 
 @app.route('/tag/<int:tag_id>')
 def tag(tag_id):

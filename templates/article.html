@@ -2,16 +2,39 @@
 <html>
 <head>
   <title>{{ article.title }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <h1>{{ article.title }}</h1>
-  <p>{{ article.content }}</p>
+  <header class="bg-light py-3">
+    <div class="container">
+      <h1 class="display-5">ハム大まめちしき</h1>
+    </div>
+  </header>
 
-  <h2>タグ</h2>
-  <ul>
-    {% for tag in article.tags %}
-      <li><a href="#">{{ tag.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <main class="container my-4">
+    <article>
+      <img src="{{ article.image_url }}" class="card-img-top" alt="{{ article.title }}">
+      <div class="card-body">
+        <h2 class="card-title">{{ article.title }}</h2>
+        <p class="card-text">{{ article.content }}</p>
+
+        <h3 class="mt-4">タグ</h3>
+        <ul class="list-group">
+          {% for tag in article.tags %}
+            <li class="list-group-item"><a href="{{ url_for('tag', tag_id=tag.id) }}">{{ tag.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-light py-3 mt-4">
+    <div class="container">
+      <p class="text-center">&copy; 2024 ハム大まめちしき</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
