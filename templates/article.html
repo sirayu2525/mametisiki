@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ article.title }}</title>
+</head>
+<body>
+  <h1>{{ article.title }}</h1>
+  <p>{{ article.content }}</p>
+
+  <h2>タグ</h2>
+  <ul>
+    {% for tag in article.tags %}
+      <li><a href="#">{{ tag.name }}</a></li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
