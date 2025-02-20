@@ -69,3 +69,7 @@
 Docker + Docker Compose で管理（環境を統一しデプロイを簡単にする）
 CI/CD (GitHub Actions) を活用（自動デプロイを実現）
 Nginx + Let’s Encrypt でSSL対応
+
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
