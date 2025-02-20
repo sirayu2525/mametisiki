@@ -1,0 +1,20 @@
+# 機密情報
+.env
+
+# 実行時に生成されるファイル
+__pycache__/
+*.pyc
+log/
+tmp/
+
+# OSやエディタが生成するファイル
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+
+# パッケージ管理ツールが生成するファイル
+venv/
+
+# データベースファイル
+#instance/

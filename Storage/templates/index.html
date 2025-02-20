@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}トップ{% endblock %}
+
+{% block content %}
+  <h2>新着豆知識</h2>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for article in new_articles %}
+      <article class="col">
+        <div class="card">
+          <a href="{{ url_for('article', article_id=article.id) }}">
+            <img src="{{ article.image_url }}" class="card-img" alt="{{ article.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text"><small class="text-muted">{{ article.created_at.strftime('%Y-%m-%d') }}</small></p>
+            </div>
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% endblock %}
