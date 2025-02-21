@@ -73,3 +73,6 @@ Nginx + Let’s Encrypt でSSL対応
 
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+
+
+Top（トレンドと新着を数件）、記事一覧（新着順と人気順、タグ検索機能）
