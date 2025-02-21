@@ -1,5 +1,6 @@
 // src/app/page.tsx
 import ArticleList from "@/components/ArticleList";
+import React from "react";
 
 async function getArticles() {
   const res = await fetch("http://localhost:3000/api/articles");

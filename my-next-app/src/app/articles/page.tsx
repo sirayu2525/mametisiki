@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
+import React from "react";
 
 async function fetchArticles(page: number, limit: number) {
   const res = await fetch(`http://localhost:3000/api/articles?page=${page}&limit=${limit}`);

@@ -1,5 +1,6 @@
 // src/app/articles/[id]/page.tsx
 import { notFound } from "next/navigation";
+import React from "react";
 
 interface Article {
   id: number;

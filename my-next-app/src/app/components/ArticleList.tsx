@@ -1,4 +1,5 @@
 // src/components/ArticleList.tsx
+import React from "react";
 import ArticleCard from "./ArticleCard";
 
 interface Article {
