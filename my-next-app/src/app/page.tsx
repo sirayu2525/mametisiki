@@ -13,9 +13,11 @@ export default async function Home() {
   const articles = await getArticles();
 
   return (
-    <div className="max-w-6xl mx-auto py-10">
-      <h1 className="text-3xl font-bold text-center mb-6">最新記事</h1>
-      <ArticleList articles={articles} />
+    <div>
+      <div className="max-w-6xl mx-auto py-10">
+        <h1 className="text-3xl font-bold text-center mb-6">最新記事</h1>
+        <ArticleList articles={articles} />
+      </div>
     </div>
   );
 }

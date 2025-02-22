@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
 
 interface Article {
   id: number;
@@ -7,18 +7,27 @@ interface Article {
   description: string;
   publishedAt: string;
   tags: string[];
+  image: string;
 }
 
-export default function ArticleCard({ id, title, description, publishedAt, tags }: Article) {
+export default function ArticleCard({ id, title, description, publishedAt, tags, image }: Article) {
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
-      {/* 画像部分（仮） */}
-      <div className="h-40 bg-gray-300 mb-4 rounded-lg"></div>
+      {/* 画像部分 */}
+      <div className="relative w-full h-40 rounded-lg overflow-hidden">
+        <Image 
+          src={image} 
+          alt={title} 
+          layout="fill" 
+          objectFit="cover" 
+          className="rounded-lg"
+        />
+      </div>
 
       {/* タイトル */}
-      <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+      <h2 className="text-xl font-bold text-gray-900 mt-4">{title}</h2>
 
-      {/* 投稿日（フォーマット済み） */}
+      {/* 投稿日 */}
       <p className="text-xs text-gray-500 mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
 
       {/* 記事の概要 */}
