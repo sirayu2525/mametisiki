@@ -15,7 +15,7 @@ const articles: Article[] = Array.from({ length: 50 }, (_, i) => ({
   description: `記事${i + 1}の概要`,
   publishedAt: new Date(Date.now() - i * 86400000).toISOString(),
   tags: i % 2 === 0 ? ["プログラミング", "Next.js"] : ["JavaScript", "TypeScript"],
-  image: `aaa`, 
+  image: `https://source.unsplash.com/400x300/?technology,${i}`, 
 }));
 
 export async function GET(request: Request) {
