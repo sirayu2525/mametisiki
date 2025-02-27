@@ -1,11 +1,9 @@
 // src/app/articles/page.tsx
-"use client";
+"use client"; // ✅ クライアントコンポーネントに変更
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
-import Pagination from "@/components/Pagination";
-import React from "react";
 
 interface Article {
   id: number;
@@ -16,51 +14,57 @@ interface Article {
   image: string;
 }
 
-async function fetchArticles(page: number, limit: number, tag?: string) {
-  let url = `/api/articles?page=${page}&limit=${limit}`;
-  if (tag) {
-    url += `&tag=${encodeURIComponent(tag)}`;
+async function fetchArticles(tag?: string): Promise<Article[]> {
+  try {
+    let url = `http://localhost:3000/api/articles`;
+    if (tag) {
+      url += `?tag=${encodeURIComponent(tag)}`;
+    }
+
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("記事の取得に失敗しました");
+
+    const data = await res.json();
+    return Array.isArray(data.articles) ? data.articles : [];
+  } catch (error) {
+    console.error("記事の取得に失敗:", error);
+    return [];
   }
-  
-  const res = await fetch(url);
-  return res.json();
 }
+
 
 export default function ArticlesPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  const limit = 12;
-  const currentTag = searchParams.get("tag") || ""; // 現在のタグ
+  const tag = searchParams.get("tag") || "";
 
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
+  const [articles, setArticles] = useState<Article[]>([]); // ✅ 空の配列をデフォルトに
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadArticles() {
-      const data = await fetchArticles(currentPage, limit, currentTag);
-      setArticles(data.articles);
-      setTotalPages(data.totalPages);
+      setLoading(true);
+      const latestArticles = await fetchArticles(tag);
+      setArticles(latestArticles);
+      setLoading(false);
     }
-    loadArticles();
-  }, [currentPage, currentTag]);
 
-  // タグをクリックしたときの処理
-  const handleTagClick = (tag: string) => {
-    router.push(`/articles?tag=${encodeURIComponent(tag)}`);
-  };
+    loadArticles();
+  }, [tag]);
 
   return (
-    <div className="max-w-6xl mx-auto py-10">
-      <h1 className="text-3xl font-bold text-center mb-6">
-        {currentTag ? `タグ: ${currentTag}` : "記事一覧"}
-      </h1>
-
-      {/* 記事リスト */}
-      <ArticleList articles={articles} onTagClick={handleTagClick} />
-
-      {/* ページネーション */}
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
+    <div>
+      <div className="max-w-6xl mx-auto py-10">
+        <h1 className="text-3xl font-bold text-center mb-6">
+          {tag ? `タグ: ${tag}` : "記事一覧"}
+        </h1>
+        {loading ? (
+          <p className="text-center text-gray-500">読み込み中...</p>
+        ) : articles.length > 0 ? ( // ✅ `articles.length` でチェック
+          <ArticleList articles={articles} />
+        ) : (
+          <p className="text-center text-gray-500">記事が見つかりません</p>
+        )}
+      </div>
     </div>
   );
 }

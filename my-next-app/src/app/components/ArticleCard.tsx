@@ -1,5 +1,4 @@
-"use client";
-
+// src/app/components/ArticleCard.tsx
 import Link from "next/link";
 import Image from "next/image";
 
@@ -12,21 +11,12 @@ interface Article {
   image: string;
 }
 
-interface ArticleCardProps extends Article {
-  onTagClick?: (tag: string) => void; // タグクリック用の関数をオプションで追加
-}
-
-export default function ArticleCard({ id, title, description, publishedAt, tags, image, onTagClick }: ArticleCardProps) {
+export default function ArticleCard({ id, title, description, publishedAt, tags, image }: Article) {
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
       <Link href={`/articles/${id}`} className="block relative w-full h-40 rounded-lg overflow-hidden">
-        <Image 
-          src={image} 
-          alt={title} 
-          fill
-          className="rounded-lg object-cover"
-        />
+        <Image src={image} alt={title} fill className="rounded-lg object-cover" />
       </Link>
 
       {/* タイトル */}
@@ -40,22 +30,22 @@ export default function ArticleCard({ id, title, description, publishedAt, tags,
       {/* 記事の概要 */}
       <p className="text-gray-600 text-sm mt-2">{description}</p>
 
-      {/* タグ表示 */}
+      {/* タグ表示（✅ `button` → `Link` に変更） */}
       <div className="mt-2 flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <button
+          <Link
             key={tag}
-            onClick={() => onTagClick?.(tag)} // ✅ onTagClick がある場合のみ実行
+            href={`/articles?tag=${encodeURIComponent(tag)}`} // ✅ タグクリックでタグ検索ページへ移動
             className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded hover:bg-blue-200 transition"
           >
             #{tag}
-          </button>
+          </Link>
         ))}
       </div>
 
       {/* 記事詳細リンク */}
       <Link href={`/articles/${id}`} className="text-blue-500 mt-4 inline-block hover:underline">
-        もっと見る »
+        詳しく見る »
       </Link>
     </div>
   );

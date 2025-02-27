@@ -1,3 +1,4 @@
+// src/app/api/articles/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/../lib/prisma";
 
@@ -9,7 +10,7 @@ export async function GET(request: Request) {
     const tag = searchParams.get("tag"); // タグの取得
     const start = (page - 1) * limit;
 
-    let whereCondition;
+    let whereCondition = {};
     if (tag) {
       whereCondition = { tags: { has: tag } }; // `tags` カラムに `tag` が含まれているか
     }
