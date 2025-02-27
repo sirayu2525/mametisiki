@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,22 +12,27 @@ interface Article {
   image: string;
 }
 
-export default function ArticleCard({ id, title, description, publishedAt, tags, image }: Article) {
+interface ArticleCardProps extends Article {
+  onTagClick?: (tag: string) => void; // タグクリック用の関数をオプションで追加
+}
+
+export default function ArticleCard({ id, title, description, publishedAt, tags, image, onTagClick }: ArticleCardProps) {
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
-      <div className="relative w-full h-40 rounded-lg overflow-hidden">
+      <Link href={`/articles/${id}`} className="block relative w-full h-40 rounded-lg overflow-hidden">
         <Image 
           src={image} 
           alt={title} 
-          layout="fill" 
-          objectFit="cover" 
-          className="rounded-lg"
+          fill
+          className="rounded-lg object-cover"
         />
-      </div>
+      </Link>
 
       {/* タイトル */}
-      <h2 className="text-xl font-bold text-gray-900 mt-4">{title}</h2>
+      <Link href={`/articles/${id}`} className="block mt-4">
+        <h2 className="text-xl font-bold text-gray-900 hover:underline">{title}</h2>
+      </Link>
 
       {/* 投稿日 */}
       <p className="text-xs text-gray-500 mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
@@ -36,9 +43,13 @@ export default function ArticleCard({ id, title, description, publishedAt, tags,
       {/* タグ表示 */}
       <div className="mt-2 flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <span key={tag} className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">
+          <button
+            key={tag}
+            onClick={() => onTagClick?.(tag)} // ✅ onTagClick がある場合のみ実行
+            className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded hover:bg-blue-200 transition"
+          >
             #{tag}
-          </span>
+          </button>
         ))}
       </div>
 
