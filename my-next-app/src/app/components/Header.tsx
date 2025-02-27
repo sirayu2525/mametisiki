@@ -11,7 +11,7 @@ export default function Header() {
         <ul className="flex space-x-6 text-gray-700">
           <li><Link href="/">Top</Link></li>
           <li><Link href="/articles">記事一覧</Link></li>
-          <li><Link href="/sinnyusei">新入生向け</Link></li>
+          <li><Link href="/begginer">新入生向け</Link></li>
           {/* Twitterは外部リンクなので <a> を使用 */}
           <li>
             <a href="https://x.com/omuichinen" target="_blank" rel="noopener noreferrer" className="hover:underline">
