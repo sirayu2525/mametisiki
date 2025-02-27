@@ -1,16 +1,28 @@
-// src/app/page.tsx
-import ArticleList from "@/components/ArticleList";
 import React from "react";
+import ArticleList from "@/components/ArticleList";
 
-async function getArticles() {
-  const res = await fetch("http://localhost:3000/api/articles");
-  const data = await res.json();
-  return data.articles || []; // ✅ articles が undefined の場合、空配列を返す
+interface Article {
+  id: number;
+  title: string;
+  description: string;
+  publishedAt: string;
+  tags: string[];
+  image: string;
 }
 
+// 最新3記事を取得
+async function fetchLatestArticles(): Promise<Article[]> {
+  const res = await fetch(`http://localhost:3000/api/articles/latest`, {
+    cache: "no-store",
+  });
 
-export default async function Home() {
-  const articles = await getArticles();
+  if (!res.ok) throw new Error("記事の取得に失敗しました");
+
+  return res.json();
+}
+
+export default async function HomePage() {
+  const articles = await fetchLatestArticles();
 
   return (
     <div>
