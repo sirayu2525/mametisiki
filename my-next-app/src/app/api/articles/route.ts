@@ -1,37 +1,33 @@
 import { NextResponse } from "next/server";
-
-interface Article {
-  id: number;
-  title: string;
-  description: string;
-  publishedAt: string;
-  tags: string[];
-  image: string;
-}
-
-const articles: Article[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  title: `記事${i + 1}`,
-  description: `記事${i + 1}の概要`,
-  publishedAt: new Date(Date.now() - i * 86400000).toISOString(),
-  tags: i % 2 === 0 ? ["プログラミング", "Next.js"] : ["JavaScript", "TypeScript"],
-  image: `https://source.unsplash.com/400x300/?technology,${i}`, 
-}));
+import { prisma } from "@/../lib/prisma";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const limit = parseInt(searchParams.get("limit") || "10", 10);
+  try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "10", 10);
 
-  const start = (page - 1) * limit;
-  const end = start + limit;
-  const paginatedArticles = articles.slice(start, end);
+    const start = (page - 1) * limit;
 
-  return NextResponse.json({
-    articles: paginatedArticles,
-    total: articles.length,
-    page,
-    limit,
-    totalPages: Math.ceil(articles.length / limit),
-  });
+    // Prisma を使ってデータ取得
+    const articles = await prisma.article.findMany({
+      skip: start,
+      take: limit,
+      orderBy: { publishedAt: "desc" },
+    });
+
+    // 総記事数を取得
+    const totalArticles = await prisma.article.count();
+
+    return NextResponse.json({
+      articles,
+      total: totalArticles,
+      page,
+      limit,
+      totalPages: Math.ceil(totalArticles / limit),
+    });
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    return NextResponse.json({ message: "データ取得に失敗しました" }, { status: 500 });
+  }
 }

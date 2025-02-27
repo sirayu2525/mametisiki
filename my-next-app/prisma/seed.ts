@@ -1,52 +1,31 @@
-import { PrismaClient, Role } from '@prisma/client'
-import * as argon2 from "argon2";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
-  try {
-    // Clear existing data
-    await prisma.user.deleteMany()
-    console.log('Existing data cleared.')
+  console.log("Seeding database...");
 
-    const users = await Promise.all([
-      prisma.user.create({
-        data: {
-          email: 'alice@example.com',
-          name: 'Alice',
-          password: await argon2.hash('alicepass123'),
-          role: Role.ADMIN,
-        },
-      }),
-      prisma.user.create({
-        data: {
-          email: 'bob@example.com',
-          name: 'Bob',
-          password: await argon2.hash('bobpass456'),
-          role: Role.USER,
-        },
-      }),
-      prisma.user.create({
-        data: {
-          email: 'charlie@example.com',
-          name: 'Charlie',
-          password: await argon2.hash('charliepass789'),
-          role: Role.USER,
-        },
-      })
-    ])
+  await prisma.article.deleteMany(); // 既存データを削除（オプション）
 
-    console.log(`Created ${users.length} users successfully.`)
-  } catch (error) {
-    console.error('Error seeding database:', error)
-    throw error
-  } finally {
-    await prisma.$disconnect()
-  }
+  await prisma.article.createMany({
+    data: Array.from({ length: 20 }, (_, i) => ({
+      title: `記事${i + 1}`,
+      description: `記事${i + 1}の概要`,
+      content: `記事${i + 1}の詳細な内容です。`,
+      publishedAt: new Date(Date.now() - i * 86400000), // 1日ずつ過去にする
+      tags: i % 2 === 0 ? ["プログラミング", "Next.js"] : ["JavaScript", "TypeScript"],
+      image: `https://source.unsplash.com/400x300/?technology,${i}`,
+    })),
+  });
+
+  console.log("Seeding completed!");
 }
 
 main()
   .catch((e) => {
-    console.error(e)
-    process.exit(1)
+    console.error(e);
+    process.exit(1);
   })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
