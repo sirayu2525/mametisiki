@@ -13,6 +13,6 @@ model Article {
   description String
   content     String
   publishedAt DateTime @default(now())
-  tags        Json
+  tags        String[]
   image       String
 }
