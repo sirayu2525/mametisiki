@@ -101,3 +101,16 @@ pm2 startup
 pm2 list
 pm2 logs next-app
 
+
+# 1️⃣ 最新のコードを取得（Git を使っている場合）
+git pull origin main  # または `git pull origin master`
+
+# 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
+npm install  # 必要に応じて実行
+
+# 3️⃣ Next.js を再ビルド
+npm run build
+
+# 4️⃣ PM2 で Next.js を再起動
+pm2 restart next-app
+
