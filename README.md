@@ -76,3 +76,27 @@ npx tailwindcss init -p
 
 
 Top（トレンドと新着を数件）、記事一覧（新着順と人気順、タグ検索機能）
+
+
+## Memo
+
+本番環境にSupabaseマイグレーションするとき、DIRECTURLじゃないとだめだった
+
+ssh username@VPS_IP_ADDRESS
+sudo apt update
+sudo apt install -y nodejs npm git
+node -v
+npm -v
+git clone git@github.com:your-username/your-repository.git
+cd your-repository
+nano .env
+npm install
+npx prisma migrate deploy
+npm run build
+npm install -g pm2
+pm2 start npm --name "next-app" -- start
+pm2 save
+pm2 startup
+pm2 list
+pm2 logs next-app
+

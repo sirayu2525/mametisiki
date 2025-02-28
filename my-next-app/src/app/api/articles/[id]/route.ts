@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/../lib/prisma";
 
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
-    const { id } = await context.params;
+    const { id } = params;
 
     // Prisma を使って ID に一致する記事を取得
     const article = await prisma.article.findUnique({
