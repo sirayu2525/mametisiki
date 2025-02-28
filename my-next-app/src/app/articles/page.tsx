@@ -1,5 +1,4 @@
-// src/app/articles/page.tsx
-"use client"; // ✅ クライアントコンポーネントに変更
+"use client"; // ✅ クライアントコンポーネント
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -14,9 +13,13 @@ interface Article {
   image: string;
 }
 
+// ✅ API のエンドポイントを環境変数から取得
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
+// ✅ 記事を取得する関数（API コールを分離）
 async function fetchArticles(tag?: string): Promise<Article[]> {
   try {
-    let url = `http://localhost:3000/api/articles`;
+    let url = `${API_BASE_URL}/api/articles`;
     if (tag) {
       url += `?tag=${encodeURIComponent(tag)}`;
     }
@@ -32,39 +35,43 @@ async function fetchArticles(tag?: string): Promise<Article[]> {
   }
 }
 
-
 export default function ArticlesPage() {
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag") || "";
 
-  const [articles, setArticles] = useState<Article[]>([]); // ✅ 空の配列をデフォルトに
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ `useEffect` の適切な書き方
   useEffect(() => {
-    async function loadArticles() {
-      setLoading(true);
-      const latestArticles = await fetchArticles(tag);
-      setArticles(latestArticles);
-      setLoading(false);
-    }
+    const loadArticles = async () => {
+      try {
+        setLoading(true);
+        const latestArticles = await fetchArticles(tag);
+        setArticles(latestArticles);
+      } catch (error) {
+        console.error("記事の取得エラー:", error);
+      } finally {
+        setLoading(false); // ✅ 失敗時にも `setLoading(false)` を実行
+      }
+    };
 
     loadArticles();
   }, [tag]);
 
   return (
-    <div>
-      <div className="max-w-6xl mx-auto py-10">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          {tag ? `タグ: ${tag}` : "記事一覧"}
-        </h1>
-        {loading ? (
-          <p className="text-center text-gray-500">読み込み中...</p>
-        ) : articles.length > 0 ? ( // ✅ `articles.length` でチェック
-          <ArticleList articles={articles} />
-        ) : (
-          <p className="text-center text-gray-500">記事が見つかりません</p>
-        )}
-      </div>
+    <div className="max-w-6xl mx-auto py-10">
+      <h1 className="text-3xl font-bold text-center mb-6">
+        {tag ? `タグ: ${tag}` : "記事一覧"}
+      </h1>
+
+      {loading ? (
+        <p className="text-center text-gray-500">読み込み中...</p>
+      ) : articles.length > 0 ? (
+        <ArticleList articles={articles} />
+      ) : (
+        <p className="text-center text-gray-500">記事が見つかりません</p>
+      )}
     </div>
   );
 }

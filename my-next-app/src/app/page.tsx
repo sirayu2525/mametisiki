@@ -10,9 +10,12 @@ interface Article {
   image: string;
 }
 
+// ✅ API のエンドポイントを環境変数から取得
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
 // 最新3記事を取得
 async function fetchLatestArticles(): Promise<Article[]> {
-  const res = await fetch(`http://localhost:3000/api/articles/latest`, {
+  const res = await fetch(`${API_BASE_URL}/api/articles/latest`, {
     cache: "no-store",
   });
 

@@ -13,9 +13,12 @@ interface Article {
   tags: string[]; // ✅ タグを追加
 }
 
+// ✅ API のエンドポイントを環境変数から取得
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
 // 記事データを取得する関数
 async function getArticle(id: string) {
-  const res = await fetch(`http://localhost:3000/api/articles/${id}`);
+  const res = await fetch(`${API_BASE_URL}/api/articles/${id}`);
 
   if (!res.ok) {
     return null; // 記事が見つからない場合
