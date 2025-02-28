@@ -81,6 +81,7 @@ Top（トレンドと新着を数件）、記事一覧（新着順と人気順�
 ## Memo
 
 本番環境にSupabaseマイグレーションするとき、DIRECTURLじゃないとだめだった
+ParamsがPromiseなの腹立つ
 
 ssh username@VPS_IP_ADDRESS
 sudo apt update

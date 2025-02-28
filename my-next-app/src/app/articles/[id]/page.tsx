@@ -1,3 +1,4 @@
+// src/pages/articles/[id]/page.tsx
 import { notFound } from "next/navigation";
 import React from "react";
 import Image from "next/image";
@@ -23,10 +24,9 @@ async function getArticle(id: string) {
   return res.json();
 }
 
-export default async function ArticlePage({ params }: { params: { id: string } }) {
-  // params を await する
-  const { id } = await Promise.resolve(params);
-  // const { id } = params; これでいいらしい（未検証）
+export default async function ArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
   // ✅ 記事を取得
   const article: Article | null = await getArticle(id);

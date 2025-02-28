@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/../lib/prisma";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params;
+    console.log("params:", params);
+    const resolvedParams = await params;
+    const { id } = resolvedParams;
 
     // Prisma を使って ID に一致する記事を取得
     const article = await prisma.article.findUnique({
