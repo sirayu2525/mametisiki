@@ -1,4 +1,4 @@
-"use client"; // ✅ クライアントコンポーネント
+"use client"; //  クライアントコンポーネント
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -13,10 +13,11 @@ interface Article {
   image: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 async function fetchArticles(tag?: string): Promise<Article[]> {
   try {
+    const API_BASE_URL = "";
     let url = `${API_BASE_URL}/api/articles`;
     if (tag) {
       url += `?tag=${encodeURIComponent(tag)}`;

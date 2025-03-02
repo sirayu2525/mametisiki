@@ -35,7 +35,7 @@ export default function ArticleCard({ id, title, description, publishedAt, tags,
         {tags.map((tag) => (
           <Link
             key={tag}
-            href={`/articles?tag=${encodeURIComponent(tag)}`} // ✅ タグクリックでタグ検索ページへ移動
+            href={`/articles?tag=${encodeURIComponent(tag)}`} //  タグクリックでタグ検索ページへ移動
             className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded hover:bg-blue-200 transition"
           >
             #{tag}

@@ -114,3 +114,25 @@ npm run build
 # 4️⃣ PM2 で Next.js を再起動
 pm2 restart next-app
 
+sudo nano /etc/nginx/sites-available/next-app
+
+server {
+    listen 80;
+    server_name 49.212.162.72;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# Nginx の設定を有効化
+sudo ln -s /etc/nginx/sites-available/next-app /etc/nginx/sites-enabled/
+# ③ 設定チェック
+sudo nginx -t
+
+sudo systemctl restart nginx
