@@ -13,11 +13,10 @@ interface Article {
   image: string;
 }
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 async function fetchArticles(tag?: string): Promise<Article[]> {
   try {
-    const API_BASE_URL = "";
     let url = `${API_BASE_URL}/api/articles`;
     if (tag) {
       url += `?tag=${encodeURIComponent(tag)}`;
@@ -34,7 +33,7 @@ async function fetchArticles(tag?: string): Promise<Article[]> {
   }
 }
 
-// ✅ `useSearchParams()` を Suspense 内にラップするコンポーネント
+//  `useSearchParams()` を Suspense 内にラップするコンポーネント
 function SearchParamsComponent({ onTagChange }: { onTagChange: (tag: string) => void }) {
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag") || "";
@@ -72,7 +71,7 @@ export default function ArticlesPage() {
         {tag ? `タグ: ${tag}` : "記事一覧"}
       </h1>
 
-      {/* ✅ `useSearchParams()` を `Suspense` でラップ */}
+      {/*  `useSearchParams()` を `Suspense` でラップ */}
       <Suspense fallback={<p className="text-center text-gray-500">検索パラメータを取得中...</p>}>
         <SearchParamsComponent onTagChange={setTag} />
       </Suspense>
