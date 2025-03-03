@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
-export const dynamic = "force-dynamic";
 
 interface Article {
   id: number;
