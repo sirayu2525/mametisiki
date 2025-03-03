@@ -1,7 +1,6 @@
 "use client"; //  クライアントコンポーネント
 
 import React, { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 import SearchParamsHandler from "@/components/SearchParamsHandler";
