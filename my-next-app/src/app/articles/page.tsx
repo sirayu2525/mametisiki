@@ -1,5 +1,7 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
+import { Metadata, ResolvingMetadata } from 'next';
+import { PageProps } from 'next';
 
 interface Article {
   id: number;
@@ -28,11 +30,11 @@ async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles
   };
 }
 
-interface Props {
-  searchParams: { tag?: string; page?: string };
+interface ArticlesPageProps {
+  searchParams: { [key: string]: string | undefined };
 }
 
-export default async function ArticlesPage({ searchParams }: Props) {
+export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
   const tag = searchParams.tag || "";
   const currentPage = Number(searchParams.page) || 1;
 
