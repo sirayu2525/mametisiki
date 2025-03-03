@@ -19,6 +19,7 @@ interface Article {
 
  async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles: Article[], totalPages: number }> {
   try {
+    console.log("fetchArticles", tag, page);
     let url = `${API_BASE_URL}/api/articles?page=${page}`;
     if (tag) {
       url += `&tag=${encodeURIComponent(tag)}`;

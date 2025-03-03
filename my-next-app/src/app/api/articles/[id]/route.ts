@@ -3,10 +3,9 @@ import { prisma } from "@/../lib/prisma";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    console.log("params:", params);
     const resolvedParams = await params;
     const { id } = resolvedParams;
-
+    console.log(id);
     // Prisma を使って ID に一致する記事を取得
     const article = await prisma.article.findUnique({
       where: { id: Number(id) },

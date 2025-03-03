@@ -8,6 +8,7 @@ export async function GET() {
       take: 3, // 3件のみ取得
       orderBy: { publishedAt: "desc" }, // 投稿日時の降順
     });
+    console.log(latestArticles);
 
     return NextResponse.json(latestArticles);
   } catch (error) {
