@@ -1,7 +1,5 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
-import { Metadata, ResolvingMetadata } from 'next';
-import { PageProps } from 'next';
 
 interface Article {
   id: number;
