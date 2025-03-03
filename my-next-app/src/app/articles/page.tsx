@@ -10,9 +10,13 @@ interface Article {
   image: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles: Article[], totalPages: number }> {
+async function fetchArticles(
+  tag?: string,
+  page: number = 1
+): Promise<{ articles: Article[]; totalPages: number }> {
   let url = `${API_BASE_URL}/api/articles?page=${page}`;
   if (tag) {
     url += `&tag=${encodeURIComponent(tag)}`;
@@ -28,15 +32,18 @@ async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles
   };
 }
 
+//  Next.js 15 用に修正
 interface ArticlesPageProps {
-  searchParams: Record<string, string | undefined>;
+  params: Record<string, string>;
+  searchParams?: Record<string, string | string[] | undefined>;
 }
 
 export default async function ArticlesPage({
-  searchParams,
+  searchParams = {},
 }: ArticlesPageProps) {
-  const tag = searchParams.tag || "";
-  const currentPage = Number(searchParams.page) || 1;
+  const tag = typeof searchParams.tag === "string" ? searchParams.tag : "";
+  const currentPage =
+    typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
 
