@@ -136,3 +136,9 @@ sudo ln -s /etc/nginx/sites-available/next-app /etc/nginx/sites-enabled/
 sudo nginx -t
 
 sudo systemctl restart nginx
+
+sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log
+
+sudo tail -n 100 /var/log/nginx/access.log
+sudo tail -n 100 /var/log/nginx/error.log
