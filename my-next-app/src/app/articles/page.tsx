@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
+import SearchParamsHandler from "@/components/SearchParamsHandler";
 
 
 interface Article {
@@ -42,27 +43,6 @@ interface Article {
   }
 }
 
-
-function SearchParamsComponent({
-  onTagChange,
-  onPageChange,
-}: {
-  onTagChange: (tag: string) => void;
-  onPageChange: (page: number) => void;
-}) {
-  const searchParams = useSearchParams();
-  const tag = searchParams.get("tag") || "";
-  const page = parseInt(searchParams.get("page") || "1", 10);
-
-  useEffect(() => {
-    onTagChange(tag);
-    onPageChange(page);
-  }, [tag, page, onTagChange, onPageChange]);
-
-  return null;
-}
-
-
 export default function ArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -74,10 +54,12 @@ export default function ArticlesPage() {
   useEffect(() => {
     const loadArticles = async () => {
       try {
+        console.log("記事の読み込み開始:", tag, currentPage);
         setLoading(true);
         const { articles, totalPages } = await fetchArticles(tag, currentPage);
         setArticles(articles);
         setTotalPages(totalPages);
+        console.log("記事の読み込み完了:", articles);
       } catch (error) {
         console.error("記事の取得エラー:", error);
       } finally {
@@ -103,7 +85,7 @@ export default function ArticlesPage() {
           </p>
         }
       > 
-        <SearchParamsComponent
+        <SearchParamsHandler
           onTagChange={setTag}
           onPageChange={setCurrentPage}
         />
