@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
@@ -29,10 +30,12 @@ async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles
 }
 
 interface ArticlesPageProps {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Record<string, string | undefined>;
 }
 
-export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
+export default async function ArticlesPage({
+  searchParams,
+}: ArticlesPageProps) {
   const tag = searchParams.tag || "";
   const currentPage = Number(searchParams.page) || 1;
 
