@@ -1,6 +1,7 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
+
 interface Article {
   id: number;
   title: string;
@@ -32,18 +33,12 @@ async function fetchArticles(
   };
 }
 
-//  Next.js 15 用に修正
-interface ArticlesPageProps {
-  params: Record<string, string>;
-  searchParams?: Record<string, string | string[] | undefined>;
-}
 
-export default async function ArticlesPage({
-  searchParams = {},
-}: ArticlesPageProps) {
-  const tag = typeof searchParams.tag === "string" ? searchParams.tag : "";
-  const currentPage =
-    typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
+type Params = Promise<{ tag?: string; page?: string }>;
+
+export default async function ArticlesPage({params}: {params: Params}) {
+  const tag = (await params).tag;
+  const currentPage = Number((await params).page);
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
 
