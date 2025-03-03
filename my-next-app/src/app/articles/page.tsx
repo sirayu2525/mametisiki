@@ -26,8 +26,10 @@ interface Article {
     if (tag) {
       url += `&tag=${encodeURIComponent(tag)}`;
     }
-
+    
+    console.log("fetch URL:", url);
     const res = await fetch(url, { cache: "no-store" });
+    console.log("fetch結果:", res.status, res.statusText);
     if (!res.ok) throw new Error("記事の取得に失敗しました");
 
     const data = await res.json();
