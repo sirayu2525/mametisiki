@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 import SearchParamsHandler from "@/components/SearchParamsHandler";
+import { useSearchParams } from "next/navigation";
 
 
 interface Article {
@@ -49,6 +50,7 @@ export default function ArticlesPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const loadArticles = async () => {
@@ -67,7 +69,7 @@ export default function ArticlesPage() {
     };
   
     loadArticles();
-  }, [tag, currentPage]); 
+  }, [searchParams]); 
   
 
   return (
