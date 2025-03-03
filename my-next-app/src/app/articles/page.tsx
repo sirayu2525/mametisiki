@@ -33,7 +33,7 @@ async function fetchArticles(
 }
 
 
-type Params = Promise<{ tag?: string; page?: string }>;
+type Params = Promise<{ tag?: string; page?: number }>;
 
 export default async function ArticlesPage({params}: {params: Params}) {
   const tag = (await params).tag;
