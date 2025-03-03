@@ -1,4 +1,3 @@
-// src/app/articles/page.tsx
 "use client"; //  クライアントコンポーネント
 
 import React, { Suspense, useEffect, useState } from "react";

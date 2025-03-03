@@ -4,10 +4,11 @@ import { prisma } from "@/../lib/prisma";
 
 export async function GET(request: Request) {
   try {
+    console.log("APIの起動");
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = parseInt(searchParams.get("limit") || "12", 10);
-    const tag = searchParams.get("tag"); // タグの取得
+    const tag = searchParams.get("tag");
     const start = (page - 1) * limit;
 
     let whereCondition = {};
@@ -22,10 +23,11 @@ export async function GET(request: Request) {
       take: limit,
       orderBy: { publishedAt: "desc" },
     });
+    console.log("APIが実行された", articles);
 
     // 総記事数を取得
     const totalArticles = await prisma.article.count({ where: whereCondition });
-    console.log("APIが起動して実行された", articles);
+
 
     return NextResponse.json({
       articles,
