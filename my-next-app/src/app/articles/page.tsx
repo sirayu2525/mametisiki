@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 interface Article {
   id: number;
@@ -26,7 +26,7 @@ interface Article {
     if (tag) {
       url += `&tag=${encodeURIComponent(tag)}`;
     }
-    
+
     console.log("fetch URL:", url);
     const res = await fetch(url, { cache: "no-store" });
     console.log("fetch結果:", res.status, res.statusText);
