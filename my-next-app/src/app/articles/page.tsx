@@ -26,6 +26,7 @@ async function fetchArticles(tag?: string): Promise<Article[]> {
     if (!res.ok) throw new Error("記事の取得に失敗しました");
 
     const data = await res.json();
+    console.log(data);
     return Array.isArray(data.articles) ? data.articles : [];
   } catch (error) {
     console.error("記事の取得に失敗:", error);
