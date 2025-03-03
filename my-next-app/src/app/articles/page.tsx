@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
