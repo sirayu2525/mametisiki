@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
 
+// export const dynamic = "force-dynamic";
+
 interface Article {
   id: number;
   title: string;
@@ -19,7 +21,7 @@ interface Article {
 
  async function fetchArticles(tag?: string, page: number = 1): Promise<{ articles: Article[], totalPages: number }> {
   try {
-    console.log("fetchArticles", tag, page);
+    console.log(`fetchArticles 実行: tag=${tag}, page=${page}`);
     let url = `${API_BASE_URL}/api/articles?page=${page}`;
     if (tag) {
       url += `&tag=${encodeURIComponent(tag)}`;
@@ -29,7 +31,7 @@ interface Article {
     if (!res.ok) throw new Error("記事の取得に失敗しました");
 
     const data = await res.json();
-    console.log(data);
+    console.log("fetchArticle実行完了", data);
     return {
       articles: Array.isArray(data.articles) ? data.articles : [],
       totalPages: data.totalPages || 1,

@@ -25,8 +25,8 @@ export async function GET(request: Request) {
 
     // 総記事数を取得
     const totalArticles = await prisma.article.count({ where: whereCondition });
-    console.log(articles);
-    
+    console.log("APIが起動して実行された", articles);
+
     return NextResponse.json({
       articles,
       total: totalArticles,
