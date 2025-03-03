@@ -50,8 +50,6 @@ export default function ArticlesPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
-  const searchParams = useSearchParams();
-
   useEffect(() => {
     const loadArticles = async () => {
       try {
@@ -69,7 +67,7 @@ export default function ArticlesPage() {
     };
   
     loadArticles();
-  }, [searchParams]); 
+  }, [tag, currentPage]); 
   
 
   return (
