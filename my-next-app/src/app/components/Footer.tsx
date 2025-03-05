@@ -1,4 +1,5 @@
 // src/components/Footer.tsx
+import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
@@ -10,19 +11,19 @@ export default function Footer() {
     </div>
     <ul className="flex gap-6">
       <li>
-        <a href="/" className="hover:underline">
+        <Link href="/" className="hover:underline">
           Top
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/articles&page=1" className="hover:underline">
+        <Link href="/articles&page=1" className="hover:underline">
           記事一覧
-        </a>
+        </Link>
       </li>
       <li>
-        <a href="/begginer" className="hover:underline">
+        <Link href="/begginer" className="hover:underline">
           新入生向け
-        </a>
+        </Link>
       </li>
     </ul>
   </div>
