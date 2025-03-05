@@ -1,6 +1,5 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
-import { headers } from "next/headers";
 
 interface Article {
   id: number;
