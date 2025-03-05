@@ -1,6 +1,6 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
-
+import { headers } from "next-headers";
 
 interface Article {
   id: number;
@@ -33,12 +33,14 @@ async function fetchArticles(
 }
 
 
-type Params = Promise<{ tag?: string; page: number }>;
+// type Params = Promise<{ tag?: string; page: number }>;
 
-export default async function ArticlesPage({params}: {params: Params}) {
-  const tag = (await params).tag;
+
+export default async function ArticlesPage() {
+  const headerList = await headers();
+  const tag = headerList.get("tag");
+  const currentPage = parseInt(headerList.get("page") || "1", 10);
   console.log(tag);
-  const currentPage = (await params).page;
   console.log(currentPage);
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
