@@ -5,13 +5,12 @@ import { prisma } from "@/../lib/prisma";
 export async function GET(request: Request) {
   try {
     console.log("APIの起動");
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = parseInt(searchParams.get("limit") || "12", 10);
-    const tag = searchParams.get("tag");
+    const url = new URL(request.url, process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
+    const page = parseInt(url.searchParams.get("page") || "1", 10);
+    const limit = parseInt(url.searchParams.get("limit") || "12", 10);
+    const tag = url.searchParams.get("tag");    
     const start = (page - 1) * limit;
     console.log("start:", start);
-    console.log("type:", typeof start);
 
     let whereCondition = {};
     if (tag) {
