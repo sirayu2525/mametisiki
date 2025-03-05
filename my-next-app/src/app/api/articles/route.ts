@@ -10,6 +10,8 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get("limit") || "12", 10);
     const tag = searchParams.get("tag");
     const start = (page - 1) * limit;
+    console.log("start:", start);
+    console.log("type:", typeof start);
 
     let whereCondition = {};
     if (tag) {
