@@ -33,11 +33,11 @@ async function fetchArticles(
 }
 
 
-type Params = Promise<{ tag?: string; page?: number }>;
+type Params = Promise<{ tag?: string; page: number }>;
 
 export default async function ArticlesPage({params}: {params: Params}) {
   const tag = (await params).tag;
-  const currentPage = Number((await params).page);
+  const currentPage = (await params).page;
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
 
@@ -53,7 +53,7 @@ export default async function ArticlesPage({params}: {params: Params}) {
         <p className="text-center text-gray-500">記事が見つかりません</p>
       )}
 
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} currentTag={tag} />
     </div>
   );
 }
