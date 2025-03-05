@@ -25,7 +25,7 @@ export default function Pagination({ currentPage, totalPages, basePath = "/artic
 
       {/* 次のページボタン */}
       {currentPage < totalPages && (
-        <Link href={`${basePath}?page=${currentPage + 1}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300">
+        <Link href={`${basePath}?page=${Number(currentPage) + Number(1)}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300">
           次へ »
         </Link>
       )}

@@ -38,7 +38,7 @@ async function fetchArticles(
 export default async function ArticlesPage({ searchParams }: { searchParams: Promise<{ tag?: string; page: number }> }) {
   console.log(searchParams);
   const tag = (await searchParams).tag;
-  const currentPage = (await searchParams).page;
+  const currentPage = Number((await searchParams).page);
   console.log(tag);
   console.log(currentPage);
 
