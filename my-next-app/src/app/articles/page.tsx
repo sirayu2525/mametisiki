@@ -36,10 +36,9 @@ async function fetchArticles(
 // type Params = Promise<{ tag?: string; page: number }>;
 
 
-export default async function ArticlesPage() {
-  const headerList = await headers();
-  const tag = headerList.get("tag") || "";
-  const currentPage = parseInt(headerList.get("page") || "1", 10);
+export default async function ArticlesPage({ searchParams }: { searchParams: Promise<{ tag?: string; page: number }> }) {
+  const tag = (await searchParams).tag;
+  const currentPage = (await searchParams).page;
   console.log(tag);
   console.log(currentPage);
 
