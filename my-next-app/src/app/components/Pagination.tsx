@@ -1,5 +1,6 @@
 // src/app/components/Pagination.tsx
 "use client";
+console.log(typeof window);
 
 import Link from "next/link";
 import React from "react";

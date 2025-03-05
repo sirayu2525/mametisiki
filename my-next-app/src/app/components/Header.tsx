@@ -10,7 +10,7 @@ export default function Header() {
       <nav>
         <ul className="flex space-x-6 text-gray-700">
           <li><Link href="/">Top</Link></li>
-          <li><Link href="/articles">記事一覧</Link></li>
+          <li><Link href="/articles?page=1">記事一覧</Link></li>
           <li><Link href="/begginer">新入生向け</Link></li>
           {/* Twitterは外部リンクなので <a> を使用 */}
           <li>
