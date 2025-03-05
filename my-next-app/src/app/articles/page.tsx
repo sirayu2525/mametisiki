@@ -38,7 +38,7 @@ async function fetchArticles(
 
 export default async function ArticlesPage() {
   const headerList = await headers();
-  const tag = headerList.get("tag");
+  const tag = headerList.get("tag") || "";
   const currentPage = parseInt(headerList.get("page") || "1", 10);
   console.log(tag);
   console.log(currentPage);
