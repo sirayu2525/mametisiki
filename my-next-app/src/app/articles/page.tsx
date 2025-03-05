@@ -37,7 +37,9 @@ type Params = Promise<{ tag?: string; page: number }>;
 
 export default async function ArticlesPage({params}: {params: Params}) {
   const tag = (await params).tag;
+  console.log(tag);
   const currentPage = (await params).page;
+  console.log(currentPage);
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
 
