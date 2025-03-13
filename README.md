@@ -142,3 +142,20 @@ sudo tail -f /var/log/nginx/error.log
 
 sudo tail -n 100 /var/log/nginx/access.log
 sudo tail -n 100 /var/log/nginx/error.log
+
+
+## リスクマネージメント
+
+１．リスク特定
+DBの情報書き換え、VPS乗っ取り、DDos攻撃
+
+２．リスク分析
+DB書き換え：このサイトの根幹を揺るがすレベル。さらに部の信用にも関わる。発せ確率はURLを外に漏らさず、認証式にすれば低いと思うが、URLを知ってる人が全員入れる状態だと高くなる。
+VPS乗っ取り：発生確率は極小。
+DDos攻撃：UXに関わる。発生確率は誰かの悪意をもらわない限り大丈夫。
+
+３．リスク評価
+
+４．リスク対応
+DB書き換え：管理の徹底。認証式にすることと抜けた部員を削除すること。
+DDos攻撃：Cloudflareにデプロイで対応。
