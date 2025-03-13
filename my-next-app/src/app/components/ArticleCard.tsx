@@ -27,10 +27,10 @@ export default function ArticleCard({ id, title, description, publishedAt, tags,
       {/* 投稿日 */}
       <p className="text-xs text-gray-500 mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
 
-      {/* 記事の概要 */}
-      <p className="text-gray-600 text-sm mt-2">{description}</p>
+      {/* 記事の概要
+      <p className="text-gray-600 text-sm mt-2">{description}</p> */}
 
-      {/* タグ表示（ `button` → `Link` に変更） */}
+      {/* タグ表示 */}
       <div className="mt-2 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <Link
