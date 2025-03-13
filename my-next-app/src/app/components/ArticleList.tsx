@@ -4,7 +4,6 @@ import ArticleCard from "./ArticleCard";
 interface Article {
   id: number;
   title: string;
-  description: string;
   publishedAt: string;
   tags: string[];
   image: string;
@@ -22,7 +21,6 @@ export default function ArticleList({ articles }: ArticleListProps) {
           key={article.id}
           id={article.id}
           title={article.title}
-          description={article.description}
           publishedAt={article.publishedAt}
           tags={article.tags}
           image={article.image} 

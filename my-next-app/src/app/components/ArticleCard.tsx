@@ -5,13 +5,12 @@ import Image from "next/image";
 interface Article {
   id: number;
   title: string;
-  description: string;
   publishedAt: string;
   tags: string[];
   image: string;
 }
 
-export default function ArticleCard({ id, title, description, publishedAt, tags, image }: Article) {
+export default function ArticleCard({ id, title, publishedAt, tags, image }: Article) {
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
