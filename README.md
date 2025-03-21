@@ -159,3 +159,10 @@ DDos攻撃：UXに関わる。発生確率は誰かの悪意をもらわない�
 ４．リスク対応
 DB書き換え：管理の徹底。認証式にすることと抜けた部員を削除すること。
 DDos攻撃：Cloudflareにデプロイで対応。
+
+
+
+npx prisma migrate dev --name add-author-to-article
+npx prisma generate
+
+npx prisma migrate deploy
