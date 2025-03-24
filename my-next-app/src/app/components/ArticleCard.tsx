@@ -19,6 +19,7 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
         <Image
           src={image}
           alt={title}
+          fill
           className="rounded-lg object-cover"
         />
       </Link>
