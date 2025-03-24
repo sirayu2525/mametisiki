@@ -64,7 +64,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
       
       {/* 記事の画像 */}
       {article.image && (
-        <div className="w-full h-60 relative mb-4">
+        <div className="w-full max-w-[imageWidth] mx-auto mb-4">
           <Image src={article.image} alt={article.title} width={imageWidth} height={imageHeight} className="rounded-lg object-cover" />
         </div>
       )}
