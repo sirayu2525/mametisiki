@@ -27,7 +27,7 @@ export default async function ArticleCard({ id, title, description, publishedAt,
 
 
       {/* タイトル */}
-      <Link href={`/articles/${id}`} className="block mt-4">
+      <Link href={`/begginer/${id}`} className="block mt-4">
         <h2 className="text-xl font-bold text-gray-900 hover:underline">{title}</h2>
       </Link>
 
