@@ -13,6 +13,14 @@ export const metadata = {
     description: 'X (旧Twitter) の投稿をもとに、大阪公立大学の学生に役立つ情報をまとめました。履修登録・時間割・新歓など、大学生活に必要な知識がここに！',
     url: 'https://hamubasu.com', // あなたの実際のドメインに変更
     siteName: 'ハムバス ～大阪公立大学専用 豆知識サイト~',
+    // images: [
+    //   {
+    //     url: 'https://yourdomain.com/og-image.png', // SNSシェア用画像URL
+    //     width: 1200,
+    //     height: 630,
+    //     alt: '大阪公立大学 豆知識サイトのOG画像',
+    //   },
+    // ],
     locale: 'ja_JP',
     type: 'website',
   },
@@ -21,7 +29,8 @@ export const metadata = {
     site: '@omuichinen', // 実際のアカウントがあれば
     title: '大阪公立大学専用 豆知識サイト',
     description: '大阪公立大学の学生向け豆知識を集約！履修登録・新歓・おすすめアプリなどを分かりやすく掲載。',
-  },
+    // images: ['https://yourdomain.com/og-image.png'],
+    },
 };
 
 
