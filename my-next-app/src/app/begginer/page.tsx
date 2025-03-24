@@ -14,16 +14,16 @@ export default function BegginerPage(){
     const articles:Article[] = [
         {
             id: 1,
-            title: "新入生向けページ",
-            description: "新入生向けのページです。",
-            publishedAt: "2022-01-01",
+            title: "履修登録のやり方",
+            description: "煩雑な履修登録のやり方をいくつかのTipsを紹介しながら解説します",
+            publishedAt: "2025-03-26",
             image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
         },
         {
             id: 2,
-            title: "新入生向けページ",
-            description: "新入生向けのページです。",
-            publishedAt: "2022-01-01",
+            title: "新入生が迷いやすいことについての解説・アドバイス",
+            description: "一般的な疑問について回答しました",
+            publishedAt: "2025-03-26",
             image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
         }
     ]
