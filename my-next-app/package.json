@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
-    "postinstall": "prisma generate", 
+    "postinstall": "prisma generate",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio"
   },
@@ -19,6 +19,7 @@
     "argon2": "^0.41.1",
     "next": "15.1.7",
     "prisma": "^6.4.1",
+    "probe-image-size": "^7.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
