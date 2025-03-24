@@ -169,6 +169,7 @@ npx prisma migrate deploy
 
 
 ## 再起動法
+:~/mametisiki/my-next-app
 npm install(必要があれば)
 pm2 stop next-app
 npm run build
