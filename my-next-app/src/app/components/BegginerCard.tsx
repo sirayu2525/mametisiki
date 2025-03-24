@@ -6,12 +6,13 @@ import Image from "next/image";
 interface Article {
   id: number;
   title: string;
+  description: string;
   publishedAt: string;
   tags?: string[];
   image: string;
 }
 
-export default async function ArticleCard({ id, title, publishedAt, tags, image }: Article) {
+export default async function ArticleCard({ id, title, description, publishedAt, tags, image }: Article) {
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
@@ -33,8 +34,8 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
       {/* 投稿日 */}
       <p className="text-xs text-gray-500 mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
 
-      {/* 記事の概要
-      <p className="text-gray-600 text-sm mt-2">{description}</p> */}
+      {/* 記事の概要 */}
+      <p className="text-gray-600 text-sm mt-2">{description}</p>
 
       {/* タグ表示 */}
       <div className="mt-2 flex flex-wrap gap-2">
