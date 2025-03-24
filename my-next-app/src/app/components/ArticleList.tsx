@@ -5,7 +5,7 @@ interface Article {
   id: number;
   title: string;
   publishedAt: string;
-  tags: string[];
+  tags?: string[];
   image: string;
 }
 

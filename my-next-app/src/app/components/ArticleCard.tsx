@@ -7,7 +7,7 @@ interface Article {
   id: number;
   title: string;
   publishedAt: string;
-  tags: string[];
+  tags?: string[];
   image: string;
 }
 
@@ -38,7 +38,7 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
 
       {/* タグ表示 */}
       <div className="mt-2 flex flex-wrap gap-2">
-        {tags.map((tag) => (
+        {tags && tags.length > 0 && tags.map((tag) => (
           <Link
             key={tag}
             href={`/articles?page=1&tag=${encodeURIComponent(tag)}`} //  タグクリックでタグ検索ページへ移動
