@@ -15,7 +15,7 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
-      <Link href={`/articles/${id}`} className="block relative w-full h-40 rounded-lg overflow-hidden">
+      <Link href={`/begginer/${id}`} className="block relative w-full h-40 rounded-lg overflow-hidden">
         <Image
           src={image}
           alt={title}
