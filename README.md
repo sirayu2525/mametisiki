@@ -166,3 +166,8 @@ npx prisma migrate dev --name add-author-to-article
 npx prisma generate
 
 npx prisma migrate deploy
+
+
+## 再起動法
+npm install(必要があれば)
+pm2 stop next-app
