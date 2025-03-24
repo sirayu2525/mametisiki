@@ -11,7 +11,7 @@ interface Article {
 
 
 export default async function BegginerPage(){
-    const articles = [
+    const articles:Article[] = [
         {
             id: 1,
             title: "新入生向けページ",
