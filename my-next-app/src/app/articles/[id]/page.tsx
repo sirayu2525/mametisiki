@@ -30,7 +30,7 @@ async function getArticle(id: string) {
   return res.json();
 }
 
-export async function getImageSize(url: string): Promise<{ width: number; height: number }> {
+async function getImageSize(url: string): Promise<{ width: number; height: number }> {
   const result = await probe(url);
   return {
     width: result.width,
