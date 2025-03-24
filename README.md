@@ -171,3 +171,5 @@ npx prisma migrate deploy
 ## 再起動法
 npm install(必要があれば)
 pm2 stop next-app
+npm run build
+pm2 restart next-app

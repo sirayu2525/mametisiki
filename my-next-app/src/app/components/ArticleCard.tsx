@@ -1,7 +1,6 @@
 // src/app/components/ArticleCard.tsx
 import Link from "next/link";
 import Image from "next/image";
-import probe from "probe-image-size";
 
 
 interface Article {
@@ -12,19 +11,7 @@ interface Article {
   image: string;
 }
 
-
-export async function getImageSize(url: string): Promise<{ width: number; height: number }> {
-  const result = await probe(url);
-  return {
-    width: result.width,
-    height: result.height,
-  };
-}
-
 export default async function ArticleCard({ id, title, publishedAt, tags, image }: Article) {
-  const imageWidth = (await getImageSize(image)).width;
-  const imageHeight = (await getImageSize(image)).height;
-  
   return (
     <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
@@ -32,8 +19,6 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
         <Image
           src={image}
           alt={title}
-          width={imageWidth}  // 画像の実サイズ or 適当な値
-          height={imageHeight}
           className="rounded-lg object-cover"
         />
       </Link>

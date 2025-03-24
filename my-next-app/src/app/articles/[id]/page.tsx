@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import probe from "probe-image-size";
 
 interface Article {
   id: number;
@@ -29,13 +30,26 @@ async function getArticle(id: string) {
   return res.json();
 }
 
+export async function getImageSize(url: string): Promise<{ width: number; height: number }> {
+  const result = await probe(url);
+  return {
+    width: result.width,
+    height: result.height,
+  };
+}
+
 export default async function ArticlePage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
 
+
   //  記事を取得
   const article: Article | null = await getArticle(id);
 
+  // 画像のサイズを取得
+  const image = article?.image || "";
+  const imageWidth = (await getImageSize(image)).width;
+  const imageHeight = (await getImageSize(image)).height;
   if (!article) {
     return notFound(); // 404ページを表示
   }
@@ -51,7 +65,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
       {/* 記事の画像 */}
       {article.image && (
         <div className="w-full h-60 relative mb-4">
-          <Image src={article.image} alt={article.title} fill className="rounded-lg object-cover" />
+          <Image src={article.image} alt={article.title} width={imageWidth} height={imageHeight} className="rounded-lg object-cover" />
         </div>
       )}
 
