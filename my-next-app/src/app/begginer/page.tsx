@@ -1,4 +1,4 @@
-import ArticleList from "@/components/ArticleList";
+import BegginerList from "@/components/BegginerList";
 
 interface Article {
   id: number;
@@ -10,7 +10,7 @@ interface Article {
 }
 
 
-export default async function BegginerPage(){
+export default function BegginerPage(){
     const articles:Article[] = [
         {
             id: 1,
@@ -33,7 +33,7 @@ export default async function BegginerPage(){
         <h1 className="text-3xl font-bold text-center mb-6">
             新入生向けページ
         </h1>
-            <ArticleList articles={articles} />
+            <BegginerList articles={articles} />
         </div>
     );
     }

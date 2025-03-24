@@ -173,3 +173,7 @@ npm install(必要があれば)
 pm2 stop next-app
 npm run build
 pm2 restart next-app
+
+
+## 疑問
+APIをapiディレクトリに分ける必要はあるのか。例えば[id]のページとか。

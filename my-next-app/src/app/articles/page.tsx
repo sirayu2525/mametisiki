@@ -47,7 +47,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
   return (
     <div className="max-w-6xl mx-auto py-10">
       <h1 className="text-3xl font-bold text-center mb-6">
-        {tag ? `タグ: ${tag}` : "記事一覧"}
+        {tag ? `タグ: ${tag}` : "まめちしき一覧"}
       </h1>
 
       {articles.length > 0 ? (
