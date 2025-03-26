@@ -95,7 +95,7 @@ export default function TimetableGuide() {
         onClick={() => setSelectedDept("hou")}
         >
         法学部の時間割表を見る
-        </button><br />
+        </button><br /><br />
         {selectedDept === "hou" && (
         <>
         <div className="mt-2">
@@ -126,7 +126,7 @@ export default function TimetableGuide() {
         onClick={() => setSelectedDept("kei")}
         >
         経済学部の時間割表を見る
-        </button><br />
+        </button><br /><br />
         {selectedDept === "kei" && (
         <>
             <Image src='/images/kei.jpg' alt='経済学部の時間割表' width={300} height={200} />
@@ -134,7 +134,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sho")}>商学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sho")}>商学部の時間割表を見る</button><br /><br />
         {selectedDept === "sho" && (
         <>
             <div className="mt-2">
@@ -144,7 +144,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sci")}>理学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sci")}>理学部の時間割表を見る</button><br /><br />
         {selectedDept === "sci" && (
         <>    
           <div className="mt-2 space-y-4">
@@ -171,7 +171,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kou")}>工学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kou")}>工学部の時間割表を見る</button><br /><br />
         {selectedDept === "kou" && (
         <>
           <div className="mt-2 space-y-4">
@@ -194,7 +194,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("nou")}>農学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("nou")}>農学部の時間割表を見る</button><br /><br />
         {selectedDept === "nou" && (
         <>
           <div className="mt-2 space-y-4">
@@ -205,7 +205,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("gensys")}>現代システム科学域の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("gensys")}>現代システム科学域の時間割表を見る</button><br /><br />
         {selectedDept === "gensys" && (
         <>
           <div className="mt-2 space-y-4">
@@ -235,7 +235,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("igaku")}>医学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("igaku")}>医学部の時間割表を見る</button><br /><br />
         {selectedDept === "igaku" && (
         <>
           <div className="mt-2 space-y-4">
@@ -252,7 +252,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("soumu")}>看護学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kango")}>看護学部の時間割表を見る</button><br /><br />
         {selectedDept === "kango" && (
         <>
           <div className="mt-2 space-y-4">
@@ -261,8 +261,8 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("soumu")}>獣医学部の時間割表を見る</button><br />
-        {selectedDept === "kango" && (
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("juui")}>獣医学部の時間割表を見る</button><br /><br />
+        {selectedDept === "juui" && (
         <>
           <div className="mt-2 space-y-4">
             <Image src="/images/juui.jpg" alt="獣医学科" width={300} height={200} />
@@ -270,7 +270,7 @@ export default function TimetableGuide() {
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("seikatsu")}>生活科学部の時間割表を見る</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("seikatsu")}>生活科学部の時間割表を見る</button><br /><br />
         {selectedDept === "seikatsu" && (
         <>
           <div className="mt-2 space-y-4">
@@ -282,7 +282,7 @@ export default function TimetableGuide() {
         </>
         )}
       
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sonota")}>表がない学部学科の方、自力でやりたい方はこちらから</button><br />
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sonota")}>表がない学部学科の方、自力でやりたい方はこちらから</button><br /><br />
         {selectedDept === "sonota" && (
         <>
           <div className="mt-4 space-y-4">
