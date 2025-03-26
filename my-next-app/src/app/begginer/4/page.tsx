@@ -65,18 +65,18 @@ export default function TimetableGuide() {
         この下の各学部のボタンを押すと1年前期の必修のみの時間割表が見られます。まずはその時間割表の全員必修の部分を白時間割に写しましょう。</p>
 
         <h3 className="text-xl font-semibold">表の見方・注意点</h3>
-        <Image src='/images/1.jpg' alt='時間割表の見方' width={300} height={200} />
+        <Image src='/images/sho.jpg' alt='商学部' width={300} height={200} />
         <p> 例えば商学部の場合、この中の灰色のものだけが全員が受ける必修です。他の色のものはとりあえず無視し、灰色だけを書き写してください。月曜5限はこの表では「中国語入門」になっていますが、写すときは自分が選んだ言語名に変えてください。どの言語でも授業時間は一緒なのでそのまま名前を変えるだけでいいです。</p>
         <button
             className="text-blue-600 underline"
             onClick={() => setSelectedDept("bun")}
         >
             文学部の時間割表を見る
-        </button>
+        </button><br />
         {selectedDept === "bun" && (
           <>
           <div className="mt-2">
-            <Image src='/images/1.jpg' alt='文学部の時間割表' width={300} height={200} />
+            <Image src='/images/bun.jpg' alt='文学部の時間割表' width={300} height={200} />
           </div>
           <h4 className="text-lg font-semibold">文学部の先輩からのアドバイス</h4>
             <p>
@@ -87,7 +87,7 @@ export default function TimetableGuide() {
             紙に列が月〜金、行が1〜5限の表を作って、受けたい授業を取り敢えず時間被りありで書いて、そこから選ぶのが分かりやすくておすすめ。空きコマを埋めるのもしやすい
             履修申請した授業を中止するのは一般的に難しいので、いきなり冒険しすぎない方がいい。(一般教養に理系の授業とか、課題の多そうな授業をたくさん入れるなど)
             期間中は何回でも変更できるので、悩んでる場合でも一旦仮で入れといて、逐次変えるのが、履修登録できなかったなどの大きい事故が少ない
-            </p>
+            </p><br />
           </>
         )}
         <button
@@ -95,7 +95,7 @@ export default function TimetableGuide() {
         onClick={() => setSelectedDept("hou")}
         >
         法学部の時間割表を見る
-        </button>
+        </button><br />
         {selectedDept === "hou" && (
         <>
         <div className="mt-2">
@@ -118,7 +118,7 @@ export default function TimetableGuide() {
             ・サボり癖絶対つけるな<br />
             ・（まだ早いけど）法学入門の単位が取れても後期油断するな<br />
             </p>
-        </div>
+        </div><br />
         </>
         )}
         <button
@@ -126,69 +126,77 @@ export default function TimetableGuide() {
         onClick={() => setSelectedDept("kei")}
         >
         経済学部の時間割表を見る
-        </button>
+        </button><br />
         {selectedDept === "kei" && (
         <>
-            <Image src='/images/1.jpg' alt='経済学部の時間割表' width={300} height={200} />
-            <p>日本/世界経済の論点は厳密には必修ではなく理論上取らなくても卒業はできるが普通は取る</p>
+            <Image src='/images/kei.jpg' alt='経済学部の時間割表' width={300} height={200} />
+            <p>日本/世界経済の論点は厳密には必修ではなく理論上取らなくても卒業はできるが普通は取る</p><br />
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sho")}>商学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sho")}>商学部の時間割表を見る</button><br />
         {selectedDept === "sho" && (
-        <div className="mt-2">
-            <img src="/images/sho-timetable.jpg" alt="商学部の時間割表" width={300} height={200} />
-            <p>会計基礎論はとても難しいので頑張ってください。それ以外は楽商学部です。</p>
-        </div>
+        <>
+            <div className="mt-2">
+                <Image src="/images/sho.jpg" alt="商学部の時間割表" width={300} height={200} />
+                <p>会計基礎論はとても難しいので頑張ってください。それ以外は楽商学部です。</p>
+            </div><br />
+        </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sci")}>理学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sci")}>理学部の時間割表を見る</button><br />
         {selectedDept === "sci" && (
+        <>    
           <div className="mt-2 space-y-4">
-            <img src="/images/physics-timetable.jpg" alt="物理学科の時間割表" width={300} height={200} />
+            <Image src="/images/buturi.jpg" alt="物理学科の時間割表" width={300} height={200} />
             <p>アドバイス<br />
               ・実験【水3〜5】の前には授業を持ってこない方が良い。(実験は予め教科書を熟読しなければ置いていかれるため)<br />
               ・就職する際の保険になる為、学部にもよるが教職課程に進む余裕があるなら進んだ方がいい<br />
               ・決める時の判断材料としては、所属学部の時間割が挙げられる。たとえば、理学部や工学部と言った必修の多い学部では教職課程を順調にとることが難しいため、オススメはしない。
             </p>
-            <img src="/images/chemistry-timetable.jpg" alt="化学科の時間割表" width={300} height={200} />
-            <img src="/images/biology-timetable.jpg" alt="生物学科の時間割表" width={300} height={200} />
+            <Image src="/images/kagaku.jpg" alt="化学科の時間割表" width={300} height={200} />
+            <Image src="/images/seibutu.jpg" alt="生物学科の時間割表" width={300} height={200} />
             <p>
               ・履修登録意外とややこしいから、ガイダンスの時に誰かとLINEとか交換しておいて、ほんとにわからなない！ってなっても聞けるようにしといたら良いと思う！<br />
               ・意外と英語のクラスで友達と仲良くなるから(少人数だし)英語受けなくても単位認定される資格ある子も、前期は受けといたほうがいいかも！<br />
               ・moodleのダッシュボードは、認知度低いけど、課題の出し忘れ防止にとても良い
             </p>
-          </div>
+          </div><br />
+        </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kou")}>工学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kou")}>工学部の時間割表を見る</button><br />
         {selectedDept === "kou" && (
+        <>
           <div className="mt-2 space-y-4">
-            <img src="/images/architecture.jpg" alt="建築学科" width={300} height={200} />
+            <Image src="/images/kentiku.jpg" alt="建築学科" width={300} height={200} />
             <p>アドバイスとしては造形実習は必須になってなかったら取らんでいいよー</p>
-            <img src="/images/mechanical.jpg" alt="機械工学科" width={300} height={200} />
-            <img src="/images/electrical.jpg" alt="電気システム" width={300} height={200} />
-            <img src="/images/applied-chem.jpg" alt="応用化学科" width={300} height={200} />
-            <img src="/images/electro-physics.jpg" alt="電子物理学科" width={300} height={200} />
+            <Image src="/images/kikai.jpg" alt="機械工学科" width={300} height={200} />
+            <Image src="/images/densisu.jpg" alt="電気システム" width={300} height={200} />
+            <Image src="/images/ouka.jpg" alt="応用化学科" width={300} height={200} />
+            <Image src="/images/denbutu.jpg" alt="電子物理学科" width={300} height={200} />
             <p>月1の化学は結構キツい</p>
-            <img src="/images/information-eng.jpg" alt="情報工学科" width={300} height={200} />
-          </div>
+            <Image src="/images/jouhou.jpg" alt="情報工学科" width={300} height={200} />
+          </div><br />
+        </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("nou")}>農学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("nou")}>農学部の時間割表を見る</button><br />
         {selectedDept === "nou" && (
+        <>
           <div className="mt-2 space-y-4">
-            <img src="/images/life-sci.jpg" alt="生命機能科学科" width={300} height={200} />
-            <img src="/images/green-env.jpg" alt="緑地環境学科" width={300} height={200} />
-            <img src="/images/applied-bio.jpg" alt="応用生物学科" width={300} height={200} />
-          </div>
+            <Image src="/images/seiki.jpg" alt="生命機能科学科" width={300} height={200} />
+            <Image src="/images/ryokuti.jpg" alt="緑地環境学科" width={300} height={200} />
+            <Image src="/images/ousei.jpg" alt="応用生物学科" width={300} height={200} />
+          </div><br />
+        </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("gensys")}>現代システム科学域の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("gensys")}>現代システム科学域の時間割表を見る</button><br />
         {selectedDept === "gensys" && (
         <>
           <div className="mt-2 space-y-4">
-            <img src="/images/env-society.jpg" alt="現代システム科学域" width={300} height={200} />
+            <Image src="/images/gensisu.jpg" alt="現代システム科学域" width={300} height={200} />
           </div>
           <p>
             現代システム科学域　履修について<br />
@@ -210,44 +218,43 @@ export default function TimetableGuide() {
             ・線形代数は２クラス分かれ、自分で先生を選ぶことができるが川添先生の方が簡単であるためおすすめ<br />
             ・健康スポーツ実習は火２or火３で選べるため、基本的に自分が行きたい学類の方に行くのが良い。<br />
             火２…心理　火３…環社・教福　（火１…知識情報は履修不可）<br />
-          </p>
+          </p><br />
         </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("igaku")}>医学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("igaku")}>医学部の時間割表を見る</button><br />
         {selectedDept === "igaku" && (
+        <>
           <div className="mt-2 space-y-4">
-            <img src="/images/medicine.jpg" alt="医学科" width={300} height={200} />
+            <Image src="/images/igaku.jpg" alt="医学科" width={300} height={200} />
             <p>専門とか2外とかは1個でも落としたら留年するから気をつけるべき、とは言え一ヶ月くらい前からちゃんと勉強したら余裕だから安心してください。あと、ワクチンを計画的に打たないと2年生以降の実習に参加できないので留年します。これも注意しておいてください。</p>
-            <img src="/images/veterinary.jpg" alt="獣医学科" width={300} height={200} />
+            <Image src="/images/juui.jpg" alt="獣医学科" width={300} height={200} />
             <p>
               ・選択必修は後期に必修で統計学基礎2があるから1限しんどいけどほとんどの人が統計学基礎1取る<br />
               ・般教の抽選はほぼ希望通る(たぶん)と思って時間割考えていい<br />
               ・金曜全休作るべき<br />
               ・2限空いてたらみんなで食堂行ける
             </p>
-          </div>
+            <Image src="/images/nursing.jpg" alt="看護学科" width={300} height={200} />
+          </div><br />
+        </>
         )}
 
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("kango")}>看護学部の時間割表を見る</button>
-        {selectedDept === "kango" && (
-          <div className="mt-2">
-            <img src="/images/nursing.jpg" alt="看護学科" width={300} height={200} />
-          </div>
-        )}
-
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("seikatsu")}>生活科学部の時間割表を見る</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("seikatsu")}>生活科学部の時間割表を見る</button><br />
         {selectedDept === "seikatsu" && (
+        <>
           <div className="mt-2 space-y-4">
-            <img src="/images/living-env.jpg" alt="居住環境学科" width={300} height={200} />
+            <img src="/images/kyojuu.jpg" alt="居住環境学科" width={300} height={200} />
             <p>
               大変な課題のときは時間が全く足りなくてしんどくなるけど、それが終わった後の達成感や周りからの評価は頑張って良かったと思える。課題は、早め早めに取りかかるのが吉。学科の友人はやっぱり建築やインテリアに興味があって、すごく刺激をもらいます！
             </p>
-          </div>
+          </div><br />
+        </>
         )}
       
-        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sonota")}>表がない学部学科の方、自力でやりたい方はこちらから</button>
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("sonota")}>表がない学部学科の方、自力でやりたい方はこちらから</button><br />
         {selectedDept === "sonota" && (
+        <>
           <div className="mt-4 space-y-4">
             <p>
                 まずはUNIPAにログイン(ログイン方法はこちら)し、下にスクロールして「学生Navi(情報共有サイト)」を押し、「授業・履修」→「大阪公立大学(学部・学域生)」→「国際基幹教育機構 時間割表」→杉本もしくは中百舌鳥の「授業時間割表(2025前期)→下にスクロールして添付ファイルのpdfを開きましょう。開けたら事前準備は完了です。
@@ -259,12 +266,11 @@ export default function TimetableGuide() {
             <p>
                 まず情報リテラシーから書いていきましょう。<br />
                 6ページの表を見て自分の学部の授業を探してください。(例:商学部なら水曜2限)<br />
-                (画像 情リテの開講時間)<br />
+                <Image src="/images/jourite.jpg" alt="情報リテラシーの開講時間" width={300} height={200} />
                 自分の学部の情リテが何曜日の何限にあるか分かったら紙に書きましょう。これで情リテは完了です。
             </p>
             <p>
                 次にUE(=University English)を書いていきます。7〜9ページにある表を見て自分の学部の授業を探し、紙に書きましょう。1Aと1Bを両方受けないといけないので2つとも見つけて書きましょう。<br />
-                (画像 UEの開講時間)
             </p>
             <p>
                 この２つと同様にして、初修外国語(=第二外国語)と健康スポーツ科学も書いていきましょう。
@@ -282,7 +288,8 @@ export default function TimetableGuide() {
                 の時間割表から必修科目がどの時間にあるかを探しましょう。見つけたらその時間にその科目を書きましょう。<br />
                 これで時間割の必修科目の部分は完了です。
             </p>
-          </div>
+          </div><br />
+        </>
         )}
       </section>
 
@@ -292,6 +299,7 @@ export default function TimetableGuide() {
         <p>学部の専門科目などの選択科目を入れていきましょう。
         https://www.omu.ac.jp/campus-life/course/curriculum/
         ここから自分の学部の要覧を開き、専門科目の配当年次が書かれた表を探してください。この中の1年前期に開講されているものの中から選んで入れていきます。例えば商学部ならこの画像の赤丸の科目です。これも先程と同様に学部の時間割表を見てどの時間に開講されるかを確認し、自分の時間割表に書いていきましょう。</p>
+        <Image src='/images/sennmonn.jpg' alt='商学部' width={300} height={200} />
       </section>
 
       <section>

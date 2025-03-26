@@ -85,7 +85,6 @@ export default function CourseRegistrationPage() {
           <p>
             (例えば <span className="text-blue-600 font-semibold">すごい時間割</span> など)時間割アプリに登録しておけばUNIPAにログインする必要がなく、色も変えて見やすくできるのでおすすめです。
           </p>
-          {/* 画像を入れるならここに挿入 */}
           <Image src="/images/schedule_app.jpg" alt="時間割アプリ" width={300} height={200} />
         </section>
       </main>

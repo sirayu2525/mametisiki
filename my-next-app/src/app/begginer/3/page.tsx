@@ -100,25 +100,34 @@ export default function AdmissionSchedulePage() {
         <a href="https://start.cii.omu.ac.jp/" className="text-blue-600 underline">https://start.cii.omu.ac.jp/</a></p>
         <p>右下の「次へ」を押し、先程確認したOMUIDと名前を入れて進みましょう。<br />
         パスワードの欄に生年月日を入力し、「確認」を押すとあなたのOMUIDと仮パスワードの部分が自動的に埋まります。<br />
-        そしたら「次へ」を押し、仮パスワードをメモしてから「パスワード変更を始める」を押してください。(画像)<br />
+        そしたら「次へ」を押し、仮パスワードをメモしてから「パスワード変更を始める」を押してください。<br />
+        <Image src='/images/change.jpg' alt='OMUパスワード変更画面' width={300} height={200} />
+        <Image src='/images/change2.jpg' alt='OMUパスワード変更画面' width={300} height={200} />
         このような画面が出てくるのでOMUIDと、先程メモした仮パスワードを入れてログインしましょう。<br />
-        パスワードの変更が必要と出てくるので「change」を押し、このような画面になるのでもう一度OMUIDと仮パスワードを入れてください。(画像)</p>
+        パスワードの変更が必要と出てくるので「change」を押し、このような画面になるのでもう一度OMUIDと仮パスワードを入れてください。</p>
+        <Image src='/images/change3.jpg' alt='OMUパスワード変更画面2' width={300} height={200} />
+        <Image src='/images/change4.jpg' alt='OMUパスワード変更画面2' width={300} height={200} />
         <p>入力したら、その後の画面で「現在のパスワード」に先ほどの仮パスワードを入力し、新しいパスワードを考えて作りましょう。再発行用メールアドレスの欄には個人のメールアドレスを入れてください。<br />
         「変更」押すとメールで確認コードが届くので、入力して「次へ」を押しましょう。</p>
         <p>「パスワード変更が完了しました」と表示されたら変更は完了です。先ほどまでの利用開始手続きのサイトに戻り、「確認する」→「次へ」を押しましょう。「次へ」が押せるようになるまで5分ほどかかりますので、その間に<br />
-        <a href="https://apps.apple.com/jp/app/google-authenticator/id388497605" className="text-blue-600 underline">Google Authenticator</a>をダウンロードしておきましょう。(画像)</p>
-        <p>「二要素認証設定」の画面が出てきたら下にスクロールして「二要素認証設定を始める」を押してください。(画像)<br />
-        この画面が出てきたらOMUIDと、先ほど設定したパスワードを入力して「送信」を押し、メールに届いた確認コードを入力して「コードを確認する」を押してください。(画像)<br />
+        <a href="https://apps.apple.com/jp/app/google-authenticator/id388497605" className="text-blue-600 underline">Google Authenticator</a>をダウンロードしておきましょう。</p>
+        <p>「二要素認証設定」の画面が出てきたら下にスクロールして「二要素認証設定を始める」を押してください。<br />
+        <Image src='/images/two-factor.jpg' alt='二要素認証設定' width={300} height={200} />
+        この画面が出てきたらOMUIDと、先ほど設定したパスワードを入力して「送信」を押し、メールに届いた確認コードを入力して「コードを確認する」を押してください。<br />
         次に「セットアップキーを発行する」を押し、QRコードを表示しましょう。<br />
-        表示できたら先ほどダウンロードしたGoogle Authenticatorを開いてください。Googleアカウントにログインするかどうかはどちらでもいいです。(画像)</p>
-        <p>この画面が表示できたら右下の＋ボタンを押し、先ほど表示したQRコードを読み取りましょう。(読み取れない場合はアカウント名にOMUID、鍵にセットアップキーを入力して追加してください。)(画像)<br />
+        表示できたら先ほどダウンロードしたGoogle Authenticatorを開いてください。Googleアカウントにログインするかどうかはどちらでもいいです。</p>
+        <Image src='/images/google-authenticator.jpg' alt='Google Authenticator' width={300} height={200} />
+        <p>この画面が表示できたら右下の＋ボタンを押し、先ほど表示したQRコードを読み取りましょう。(読み取れない場合はアカウント名にOMUID、鍵にセットアップキーを入力して追加してください。)<br />
+        <Image src='/images/pass.jpg' alt='Password' width={300} height={200} />
         この画面が出たらワンタイムパスワードの設定は完了です。<br />
         <a href="https://portal.omu.ac.jp/faq/Lists/faq/DispForm.aspx?ID=41&e=Ra65j2" className="text-blue-600 underline">https://portal.omu.ac.jp/faq/Lists/faq/DispForm.aspx?ID=41&e=Ra65j2</a><br />
         最後に、このサイトにログインすることができれば利用開始手続きは完了です。</p>
 
         <h4 className="text-lg font-semibold mt-4">③OMUメールの設定</h4>
-        <p><a href="http://outlook.office365.com/" className="text-blue-600 underline">http://outlook.office365.com/</a> にアクセスし、(個人のOMUID)@st.omu.ac.jpと入力してください。(画像)</p>
-        <p>その後ログイン画面が出るので、OMUIDとパスワード、ワンタイムパスワード(30秒ごとに切り替わるやつ、先程ダウンロードしたGoogle Authenticatorで確認)を入力して進めばOMUメールの設定は完了です。(画像)</p>
+        <p><a href="http://outlook.office365.com/" className="text-blue-600 underline">http://outlook.office365.com/</a> にアクセスし、(個人のOMUID)@st.omu.ac.jpと入力してください。</p>
+        <Image src='/images/omu.jpg' alt='OMUメール設定' width={300} height={200} />
+        <p>その後ログイン画面が出るので、OMUIDとパスワード、ワンタイムパスワード(30秒ごとに切り替わるやつ、先程ダウンロードしたGoogle Authenticatorで確認)を入力して進めばOMUメールの設定は完了です。</p>
+        <Image src='/images/omu2.jpg' alt='OMUメール設定2' width={300} height={200} />
         <p>最後に下のボタンからOMUメールをお気に入り登録しておきましょう。</p>
         <p>これで3/31までに必要な情報サービス利用手続きは全て完了です。お疲れ様でした！(4/8までに必要な手続きもあります。時間があればそちらもやっておきましょう。)</p>
         <p className="mt-4">困ったときは<br />

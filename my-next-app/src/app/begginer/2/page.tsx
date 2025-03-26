@@ -13,8 +13,8 @@ export default function NewStudentGuide() {
             <br />教室名が8から始まるものは全て8号館(=全学共通教育棟)にあります。(杉本の場合)
           </p>
           {/* 画像: UNIPAの使い方×2枚 */}
-          <Image src='/images/unipa1.png' alt='UNIPAの使い方' width={300} height={200} />
-          <Image src='/images/unipa2.png' alt='UNIPAの使い方' width={300} height={200} />
+          <Image src='/images/unipa1.jpg' alt='UNIPAの使い方' width={300} height={200} />
+          <Image src='/images/unipa2.jpg' alt='UNIPAの使い方' width={300} height={200} />
         </section>
   
         <section className="mb-8">

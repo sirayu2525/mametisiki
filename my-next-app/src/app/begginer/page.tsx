@@ -17,28 +17,42 @@ export default function BegginerPage(){
             title: "履修登録のやり方",
             description: "煩雑な履修登録のやり方をいくつかのTipsを紹介しながら解説します",
             publishedAt: "2025-03-26",
-            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
+            image: "/images/schedule_app.jpg",
         },
         {
             id: 2,
             title: "新入生が迷いやすいことについての解説・アドバイス",
             description: "一般的な疑問について回答しました",
             publishedAt: "2025-03-26",
-            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
+            image: "/images/unipa1.jpg",
         },
         {
             id: 3,
             title: "合格後のスケジュール・各手続きの手順",
             description: "数多ある手続きを簡潔にまとめました",
             publishedAt: "2025-03-26",
-            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.png",
+            image: "/images/check.jpg",
         },
         {
             id: 4,
-            title: "学生生活における注意点",
-            description: "学生生活において気をつけるべき点を紹介します",
+            title: "時間割の作り方",
+            description: "最初の時間割の作り方を紹介します",
             publishedAt: "2025-03-26",
-            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
+            image: "/images/sho.jpg",
+        },
+        {
+            id: 5,
+            title: "課外活動について",
+            description: "部活サークルに関する情報をまとめました",
+            publishedAt: "2025-03-26",
+            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//0.jpg",
+        },
+        {
+            id: 6,
+            title: "キャンパスマップ",
+            description: "キャンパスマップを紹介します",
+            publishedAt: "2025-03-26",
+            image: "/images/campus.jpg",
         }
     ]
 
