@@ -1,11 +1,18 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 export default function Header() {
   return (
     <header className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
       <Link href="/" className="text-xl font-bold hover:opacity-80 transition-opacity">
-        ハムバス
+        <Image
+          src="/images/hamubasu.jpg"
+          alt="ハムバス ロゴ"
+          width={160} // サイズ調整はここで
+          height={10}
+          className="h-auto w-auto"
+        />
       </Link>
       <nav>
         <ul className="flex space-x-6 text-gray-700">

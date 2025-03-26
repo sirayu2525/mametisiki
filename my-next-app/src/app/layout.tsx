@@ -15,7 +15,7 @@ export const metadata = {
     siteName: 'ハムバス ～大阪公立大学専用 豆知識サイト~',
     images: [
       {
-        url: '/images/hamu.jpg', // SNSシェア用画像URL
+        url: '/images/hamubasu.jpg', // SNSシェア用画像URL
         width: 1200,
         height: 630,
         alt: '大阪公立大学 まめちしきサイトの画像',

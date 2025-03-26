@@ -297,8 +297,9 @@ export default function TimetableGuide() {
       <section>
         <h2 className="text-2xl font-semibold">③選択科目(自由に選べる科目)を入れる</h2>
         <p>学部の専門科目などの選択科目を入れていきましょう。
-        https://www.omu.ac.jp/campus-life/course/curriculum/
-        ここから自分の学部の要覧を開き、専門科目の配当年次が書かれた表を探してください。この中の1年前期に開講されているものの中から選んで入れていきます。例えば商学部ならこの画像の赤丸の科目です。これも先程と同様に学部の時間割表を見てどの時間に開講されるかを確認し、自分の時間割表に書いていきましょう。</p>
+           https://www.omu.ac.jp/campus-life/course/curriculum/
+           ここから自分の学部の要覧を開き、専門科目の配当年次が書かれた表を探してください。この中の1年前期に開講されているものの中から選んで入れていきます。例えば商学部ならこの画像の赤丸の科目です。この中からどれを受けたいかを決め、その後学部の時間割表(https://www.omu.ac.jp/campus-life/course/academic-calendar/timetable-u/)からどの時間に開講されるかを確認システムにして自分の時間割表に書いていきましょう。
+        </p>
         <Image src='/images/sennmonn.jpg' alt='商学部' width={300} height={200} />
       </section>
 

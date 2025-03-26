@@ -16,6 +16,7 @@ export default function CampusMap() {
           <p>
             1年生が授業を受ける建物です。教室名が8○○の教室は全てこの建物にあり、2文字目を見れば階数がわかります。(810なら1階、83Aなら3階)
             18番の階段教室(≒基礎教育実験棟)とも繋がっています。
+            <Image src='/images/map.jpg' alt='map' width={300} height={200} />
           </p>
   
           <h3 className="text-lg font-semibold">11 学術情報総合センター(学情、図書館)</h3>
@@ -61,6 +62,30 @@ export default function CampusMap() {
               お使いのブラウザは video タグに対応していません。
             </video>
           </div>
+          <h3 className="text-lg font-semibold">近道</h3>
+            <div className="my-4">
+                <video controls className="w-full max-w-3xl">
+                <source src="/tikamiti.mp4" type="video/mp4" />
+                お使いのブラウザは video タグに対応していません。
+                </video>
+            </div>
+        </section>
+
+        <section id="nakamozu">
+            <h2 className="text-xl font-semibold">中百舌鳥キャンパス</h2>
+            <div>
+                <Image src="/images/nakamozu.jpg" alt="中百舌鳥キャンパス" width={300} height={200} />
+            </div>
+        </section>
+
+        <section id="access2">
+            <h2 className="text-xl font-semibold">中百舌鳥駅から中百舌鳥キャンパスまでの行き方</h2>
+            <div className="my-4">
+                <video controls className="w-full max-w-3xl">
+                    <source src="/nakamozu.mp4" type="video/mp4" />
+                    お使いのブラウザは video タグに対応していません。
+                </video>    
+            </div>
         </section>
       </div>
     );
