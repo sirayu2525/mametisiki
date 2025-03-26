@@ -25,6 +25,20 @@ export default function BegginerPage(){
             description: "一般的な疑問について回答しました",
             publishedAt: "2025-03-26",
             image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
+        },
+        {
+            id: 3,
+            title: "合格後のスケジュール・各手続きの手順",
+            description: "数多ある手続きを簡潔にまとめました",
+            publishedAt: "2025-03-26",
+            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.png",
+        },
+        {
+            id: 4,
+            title: "学生生活における注意点",
+            description: "学生生活において気をつけるべき点を紹介します",
+            publishedAt: "2025-03-26",
+            image: "https://oplydfuaxpsebwxjwipq.supabase.co/storage/v1/object/public/ArticleImages//1.jpg",
         }
     ]
 
