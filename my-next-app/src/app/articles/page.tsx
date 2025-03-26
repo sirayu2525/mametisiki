@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList";
 import Pagination from "@/components/Pagination";
+import Link from "next/link";
 
 interface Article {
   id: number;
@@ -44,7 +45,10 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
 
   const { articles, totalPages } = await fetchArticles(tag, currentPage);
 
+  const tags = ["雑学","施設・設備","学外","飲食","空きコマ","終了済","その他","行事","勉強","新入生向け","おすすめ","杉本キャンパス","中百舌鳥キャンパス","お得情報"];
+
   return (
+  <>
     <div className="max-w-6xl mx-auto py-10">
       <h1 className="text-3xl font-bold text-center mb-6">
         {tag ? `タグ: ${tag}` : "まめちしき一覧"}
@@ -58,5 +62,17 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
 
       <Pagination currentPage={currentPage} totalPages={totalPages} currentTag={tag} />
     </div>
+    {/* ハッシュタグ一覧を追加 */}
+    <div className="max-w-6xl mx-auto py-10">
+    <h1 className="text-3xl font-bold text-center mb-6">タグ一覧</h1>
+    <ul>
+      {tags.map((tag) => (
+        <li key={tag}>
+          <Link href={`/articles?page=1&tag=${encodeURIComponent(tag)}`} className="bg-blue-100 text-blue-600 text-2xl px-2 py-1 rounded hover:bg-blue-200 transition">#{tag}</Link>
+        </li>
+      ))}
+    </ul>
+    </div>
+  </>
   );
 }
