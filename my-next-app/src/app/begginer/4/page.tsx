@@ -72,7 +72,7 @@ export default function TimetableGuide() {
             onClick={() => setSelectedDept("bun")}
         >
             文学部の時間割表を見る
-        </button><br />
+        </button><br /><br />
         {selectedDept === "bun" && (
           <>
           <div className="mt-2">
