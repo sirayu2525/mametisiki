@@ -1,5 +1,6 @@
 import React from "react";
 import ArticleList from "@/components/ArticleList";
+import Link from "next/link";
 
 interface Article {
   id: number;
@@ -26,6 +27,7 @@ async function fetchLatestArticles(): Promise<Article[]> {
 
 export default async function HomePage() {
   const articles = await fetchLatestArticles();
+  const tags = ["雑学","施設・設備","学外","飲食","空きコマ","終了済","その他","行事","勉強","新入生向け","おすすめ","杉本キャンパス","中百舌鳥キャンパス","お得情報"];
 
   return (
     <div>
@@ -33,6 +35,19 @@ export default async function HomePage() {
         <h1 className="text-3xl font-bold text-center mb-6">最新記事</h1>
         <ArticleList articles={articles} />
       </div>
+
+      {/* ハッシュタグ一覧を追加 */}
+      <div className="max-w-6xl mx-auto py-10">
+        <h1 className="text-3xl font-bold text-center mb-6">タグ一覧</h1>
+        <ul>
+          {tags.map((tag) => (
+            <li key={tag} className="text-2xl font-bold text-center mb-6">
+              <Link href={`/articles?page=1&tag=${encodeURIComponent(tag)}`}>#{tag}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
   );
 }
