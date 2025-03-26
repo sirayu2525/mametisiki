@@ -25,6 +25,11 @@ export default function Header() {
               Twitter
             </a>
           </li>
+          <li>
+            <a href="https://marshmallow-qa.com/ekhlp8qbaul4gqr" target="_blank" rel="noopener noreferrer" className="hover:underline">
+            質問・ネタ提供
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
