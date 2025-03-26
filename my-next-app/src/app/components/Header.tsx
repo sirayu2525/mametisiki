@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
       <Link href="/" className="text-xl font-bold hover:opacity-80 transition-opacity">
-        📰ハムバス
+        ハムバス
       </Link>
       <nav>
         <ul className="flex space-x-6 text-gray-700">
