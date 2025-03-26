@@ -161,6 +161,12 @@ export default function TimetableGuide() {
               ・意外と英語のクラスで友達と仲良くなるから(少人数だし)英語受けなくても単位認定される資格ある子も、前期は受けといたほうがいいかも！<br />
               ・moodleのダッシュボードは、認知度低いけど、課題の出し忘れ防止にとても良い
             </p>
+            <Image src="/images/suugaku.jpg" alt="数学科" width={300} height={200} />
+            <Image src="/images/seika.jpg" alt="生物化学科" width={300} height={200} />
+            <p>般教と基礎教をめんどくさいからって理由で履修してないと来年もっとめんどくさくなるので、必修、専門科目が少ない一回生のうちにまだ興味があるもの、もしくはなんとかやりきれそうなものを取っとくといいかな、と思います。
+               それと多分一回生が一番暇なので、適度に遊び呆けてほしいなと思います。
+               それから言い忘れてたんですが、月2の生物化学への招待は必修みたいなものなので取っといた方がいいですね。
+            </p>
           </div><br />
         </>
         )}
@@ -177,11 +183,6 @@ export default function TimetableGuide() {
             <Image src="/images/denbutu.jpg" alt="電子物理学科" width={300} height={200} />
             <p>月1の化学は結構キツい</p>
             <Image src="/images/jouhou.jpg" alt="情報工学科" width={300} height={200} />
-            <Image src="/images/suugaku.jpg" alt="数学科" width={300} height={200} />
-            <Image src="/images/seika.jpg" alt="生物化学科" width={300} height={200} />
-            <p>般教と基礎教をめんどくさいからって理由で履修してないと来年もっとめんどくさくなるので、必修、専門科目が少ない一回生のうちにまだ興味があるもの、もしくはなんとかやりきれそうなものを取っとくといいかな、と思います。
-               それと多分一回生が一番暇なので、適度に遊び呆けてほしいなと思います。
-               それから言い忘れてたんですが、月2の生物化学への招待は必修みたいなものなので取っといた方がいいですね。</p>
             <Image src="/images/denden.jpg" alt="電気電子工学科" width={300} height={200} />
             <Image src="/images/baio.jpg" alt="化学バイオ工学科" width={300} height={200} />
             <p>一回前期が一番時間割的に般教入れやすいのでめっちゃ取った方がいいです！
@@ -247,7 +248,24 @@ export default function TimetableGuide() {
               ・金曜全休作るべき<br />
               ・2限空いてたらみんなで食堂行ける
             </p>
-            <Image src="/images/nursing.jpg" alt="看護学科" width={300} height={200} />
+          </div><br />
+        </>
+        )}
+
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("soumu")}>看護学部の時間割表を見る</button><br />
+        {selectedDept === "kango" && (
+        <>
+          <div className="mt-2 space-y-4">
+            <Image src="/images/kango.jpg" alt="看護学科" width={300} height={200} />
+          </div><br />
+        </>
+        )}
+
+        <button className="text-blue-600 underline" onClick={() => setSelectedDept("soumu")}>獣医学部の時間割表を見る</button><br />
+        {selectedDept === "kango" && (
+        <>
+          <div className="mt-2 space-y-4">
+            <Image src="/images/juui.jpg" alt="獣医学科" width={300} height={200} />
           </div><br />
         </>
         )}
@@ -256,7 +274,7 @@ export default function TimetableGuide() {
         {selectedDept === "seikatsu" && (
         <>
           <div className="mt-2 space-y-4">
-            <img src="/images/kyojuu.jpg" alt="居住環境学科" width={300} height={200} />
+            <Image src="/images/kyojuu.jpg" alt="居住環境学科" width={300} height={200} />
             <p>
               大変な課題のときは時間が全く足りなくてしんどくなるけど、それが終わった後の達成感や周りからの評価は頑張って良かったと思える。課題は、早め早めに取りかかるのが吉。学科の友人はやっぱり建築やインテリアに興味があって、すごく刺激をもらいます！
             </p>
