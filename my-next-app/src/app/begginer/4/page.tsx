@@ -177,6 +177,18 @@ export default function TimetableGuide() {
             <Image src="/images/denbutu.jpg" alt="電子物理学科" width={300} height={200} />
             <p>月1の化学は結構キツい</p>
             <Image src="/images/jouhou.jpg" alt="情報工学科" width={300} height={200} />
+            <Image src="/images/suugaku.jpg" alt="数学科" width={300} height={200} />
+            <Image src="/images/seika.jpg" alt="生物化学科" width={300} height={200} />
+            <p>般教と基礎教をめんどくさいからって理由で履修してないと来年もっとめんどくさくなるので、必修、専門科目が少ない一回生のうちにまだ興味があるもの、もしくはなんとかやりきれそうなものを取っとくといいかな、と思います。
+               それと多分一回生が一番暇なので、適度に遊び呆けてほしいなと思います。
+               それから言い忘れてたんですが、月2の生物化学への招待は必修みたいなものなので取っといた方がいいですね。</p>
+            <Image src="/images/denden.jpg" alt="電気電子工学科" width={300} height={200} />
+            <Image src="/images/baio.jpg" alt="化学バイオ工学科" width={300} height={200} />
+            <p>一回前期が一番時間割的に般教入れやすいのでめっちゃ取った方がいいです！
+            地学実験はとるとらないは好みかなって感じです！（単位数最終的に足りるので）</p>
+            <Image src="/images/kaiyou.jpg" alt="海洋システム工学科" width={300} height={200} />
+            <p>基礎力をがんばれ、あってるって思っても誰かと確認したほうがいい。期末はとれないから小テ課題でできたら9割最低8割はほしい。
+            課題の締め切りがはやいからみんなでLINEで共有しながら乗り越える必要がある。</p>
           </div><br />
         </>
         )}
