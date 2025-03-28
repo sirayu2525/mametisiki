@@ -64,14 +64,14 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
     </div>
     {/* ハッシュタグ一覧を追加 */}
     <div className="max-w-6xl mx-auto py-10">
-    <h1 className="text-3xl font-bold text-center mb-6">タグ一覧</h1>
-    <ul>
-      {tags.map((tag) => (
-        <li key={tag}>
-          <Link href={`/articles?page=1&tag=${encodeURIComponent(tag)}`} className="bg-blue-100 text-blue-600 text-2xl px-2 py-1 rounded hover:bg-blue-200 transition">#{tag}</Link>
-        </li>
-      ))}
-    </ul>
+        <h1 className="text-3xl font-bold text-center mb-6">タグ一覧</h1>
+        <ul className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <li key={tag}>
+              <Link href={`/articles?page=1&tag=${encodeURIComponent(tag)}`} className="bg-blue-100 text-blue-600 text-2xl px-2 py-1 rounded hover:bg-blue-200 transition">#{tag}</Link>
+            </li>
+          ))}
+        </ul>
     </div>
   </>
   );
