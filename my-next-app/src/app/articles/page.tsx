@@ -57,7 +57,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
       {articles.length > 0 ? (
         <ArticleList articles={articles} />
       ) : (
-        <p className="text-center text-gray-500">記事が見つかりません</p>
+        <p className="text-center">記事が見つかりません</p>
       )}
 
       <Pagination currentPage={currentPage} totalPages={totalPages} currentTag={tag} />

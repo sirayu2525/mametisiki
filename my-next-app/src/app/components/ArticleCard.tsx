@@ -13,7 +13,7 @@ interface Article {
 
 export default async function ArticleCard({ id, title, publishedAt, tags, image }: Article) {
   return (
-    <div className="w-full border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow duration-300">
+    <div className="w-full border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300">
       {/* 画像部分 */}
       <Link href={`/articles/${id}`} className="block relative w-full h-40 rounded-lg overflow-hidden">
         <Image
@@ -27,11 +27,11 @@ export default async function ArticleCard({ id, title, publishedAt, tags, image 
 
       {/* タイトル */}
       <Link href={`/articles/${id}`} className="block mt-4">
-        <h2 className="text-xl font-bold text-gray-900 hover:underline">{title}</h2>
+        <h2 className="text-xl font-bold hover:underline">{title}</h2>
       </Link>
 
       {/* 投稿日 */}
-      <p className="text-xs text-gray-500 mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
+      <p className="text-xs mt-1">📅 {new Date(publishedAt).toLocaleDateString("ja-JP")}</p>
 
       {/* 記事の概要
       <p className="text-gray-600 text-sm mt-2">{description}</p> */}

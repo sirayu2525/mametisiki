@@ -25,6 +25,7 @@ export default function TimetableGuide() {
           必修科目は学部学科ごとに設定されており、時間や内容を選ぶことはできません。(例えば商学部の情報リテラシーは水曜の2限と決まっています)なので基本的には必修科目を受け、残りの空いた時間に好きな授業を入れていく方針になります。</p>
   
           <h3 className="text-xl font-semibold">時間割例(商学部)</h3>
+          <Image src='/images/sho.jpg' alt='商学部の時間割表' width={300} height={200} />
           <p>灰色が必修科目、オレンジが選択科目、水色が抽選科目です。授業は22単位取り、週13コマになりました。</p>
   
           <h4 className="text-lg font-semibold">シラバスを見よう</h4>
@@ -328,7 +329,8 @@ export default function TimetableGuide() {
         <h2 className="text-2xl font-semibold">③選択科目(自由に選べる科目)を入れる</h2>
         <p>学部の専門科目などの選択科目を入れていきましょう。
            https://www.omu.ac.jp/campus-life/course/curriculum/
-           ここから自分の学部の要覧を開き、専門科目の配当年次が書かれた表を探してください。この中の1年前期に開講されているものの中から選んで入れていきます。例えば商学部ならこの画像の赤丸の科目です。この中からどれを受けたいかを決め、その後学部の時間割表(https://www.omu.ac.jp/campus-life/course/academic-calendar/timetable-u/)からどの時間に開講されるかを確認システムにして自分の時間割表に書いていきましょう。
+           ここから自分の学部の要覧を開き、専門科目の配当年次が書かれた表を探してください。この中の1年前期に開講されているものの中から選んで入れていきます。例えば商学部ならこの画像の赤丸の科目です。この中からどれを受けたいかを決め、
+           その後学部の時間割表(https://www.omu.ac.jp/campus-life/course/academic-calendar/timetable-u/)からどの時間に開講されるかをどの時間に開講されるかを確認して自分の時間割表に書いていきましょう。
         </p>
         <Image src='/images/sennmonn.jpg' alt='商学部' width={300} height={200} />
       </section>

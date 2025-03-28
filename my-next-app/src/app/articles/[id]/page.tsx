@@ -60,7 +60,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
       <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
 
       {/* 記事の投稿日 */}
-      <p className="text-gray-500 mb-4">📅 {new Date(article.publishedAt).toLocaleDateString("ja-JP")}</p>
+      <p className="mb-4">📅 {new Date(article.publishedAt).toLocaleDateString("ja-JP")}</p>
       
       {/* 記事の画像 */}
       {article.image && (
@@ -83,7 +83,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
       </div>
 
       {/* 記事の本文 */}
-      <p className="text-gray-700">{article.content}</p>
+      <p>{article.content}</p>
     </div>
   );
 }

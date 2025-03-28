@@ -16,8 +16,8 @@ export default function Footer() {
         </Link>
       </li>
       <li>
-        <Link href="/articles&page=1" className="hover:underline">
-          記事一覧
+        <Link href="/articles?page=1" className="hover:underline">
+          まめちしき一覧
         </Link>
       </li>
       <li>
