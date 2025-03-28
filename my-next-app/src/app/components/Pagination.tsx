@@ -18,14 +18,14 @@ export default function Pagination({ currentPage, totalPages, basePath = "/artic
     <div className="flex justify-center space-x-4 mt-6">
       {/* 前のページボタン */}
       {currentPage > 1 && (
-        <Link href={`${basePath}?page=${currentPage - 1}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300">
+        <Link href={`${basePath}?page=${currentPage - 1}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 text-gray-900 hover:bg-gray-300">
           « 前へ
         </Link>
       )}
 
       {/* 次のページボタン */}
       {currentPage < totalPages && (
-        <Link href={`${basePath}?page=${Number(currentPage) + Number(1)}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300">
+        <Link href={`${basePath}?page=${Number(currentPage) + Number(1)}${tagQuery}`} className="px-4 py-2 border rounded bg-gray-200 text-gray-900 hover:bg-gray-300">
           次へ »
         </Link>
       )}
