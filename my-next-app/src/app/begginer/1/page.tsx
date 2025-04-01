@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function CourseRegistrationPage() {
     return (
@@ -7,7 +8,7 @@ export default function CourseRegistrationPage() {
   
         <p className="mb-4">
           履修登録をする前に時間割表を作りましょう。まだできていない人は
-          <a href="#schedule" className="text-blue-500 underline">「時間割の作り方」</a>を先に見てください。
+          <Link href="/begginer/4" className="text-blue-500 underline">「時間割の作り方」</Link>を先に見てください。
         </p>
   
         <section className="mb-6">
@@ -17,7 +18,7 @@ export default function CourseRegistrationPage() {
           </p>
           <p>
             履修登録はUNIPAというサイトを使用して行いますが、まずは「時間割の作り方」を参考に下書きを作り、完成してからUNIPAで登録するのがおすすめです。
-            <a href="#login" className="text-blue-500 underline">(UNIPAへのログイン方法はこちら)</a>
+            {/* <a href="#login" className="text-blue-500 underline">(UNIPAへのログイン方法はこちら)</a> */}
           </p>
         </section>
   
