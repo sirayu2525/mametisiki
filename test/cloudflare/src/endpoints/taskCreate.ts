@@ -36,6 +36,7 @@ export class TaskCreate extends OpenAPIRoute {
 
 	async handle(c) {
 		// Get validated data
+		// もしリクエストボディがschemaの項目を満たしていない場合、エラーを返す
 		const data = await this.getValidatedData<typeof this.schema>();
 
 		// Retrieve the validated request body

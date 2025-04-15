@@ -35,6 +35,7 @@ export class TaskDelete extends OpenAPIRoute {
 		const data = await this.getValidatedData<typeof this.schema>();
 
 		// Retrieve the validated slug
+		// 分割代入してその値だけ取り出す（その値しか必要ない）
 		const { taskSlug } = data.params;
 
 		// Implement your own object deletion here
