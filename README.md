@@ -1,6 +1,6 @@
 # mametisiki
 
-大阪公立大学専用 豆知識サイト 要件定義書
+## 大阪公立大学専用 豆知識サイト 要件定義書(適当)
 
 1. 背景
 
@@ -14,33 +14,33 @@
 
 3. サイト構成
 
-トップページ新着記事 o
+トップページ新着記事 
 
 いいねボタン
 
 いいね！数によるトレンド記事
 
-タグクラウド o
+タグクラウド 
 
 検索窓
 
-広告掲載エリア o
+広告掲載エリア
 
-記事ページ記事タイトル o
+記事ページ記事タイトル 
 
-記事本文 o
+記事本文 
 
-投稿日時 o
+投稿日時 
 
-ハッシュタグ o
+ハッシュタグ 
 
 関連する豆知識へのリンク
 
 シェアボタン (Twitter, Facebookなど)
 
-タグ一覧 o
+タグ一覧 
 
-各タグに紐づく記事一覧へのリンク o
+各タグに紐づく記事一覧へのリンク 
 
 タグ検索
 
@@ -66,13 +66,8 @@
 
 （広告配信システムGoogle AdSenseなどの広告配信システムとの連携機能。）
 
-Docker + Docker Compose で管理（環境を統一しデプロイを簡単にする）
 CI/CD (GitHub Actions) を活用（自動デプロイを実現）
 Nginx + Let’s Encrypt でSSL対応
-
-
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
 
 
 Top（トレンドと新着を数件）、記事一覧（新着順と人気順、タグ検索機能）
@@ -81,8 +76,8 @@ Top（トレンドと新着を数件）、記事一覧（新着順と人気順�
 ## Memo
 
 本番環境にSupabaseマイグレーションするとき、DIRECTURLじゃないとだめだった
-ParamsがPromiseなの腹立つ
 
+```
 ssh username@VPS_IP_ADDRESS
 sudo apt update
 sudo apt install -y nodejs npm git
@@ -100,39 +95,34 @@ pm2 save
 pm2 startup
 pm2 list
 pm2 logs next-app
+```
 
-
-# 1️⃣ 最新のコードを取得（Git を使っている場合）
-git pull origin main  # または `git pull origin master`
-
-# 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
+### 1️⃣ 最新のコードを取得（Git を使っている場合）
+```
+git pull origin main  または `git pull origin master`
+```
+### 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
+```
 npm install  # 必要に応じて実行
-
-# 3️⃣ Next.js を再ビルド
+```
+### 3️⃣ Next.js を再ビルド
+```
 npm run build
+```
 
-# 4️⃣ PM2 で Next.js を再起動
+### 4️⃣ PM2 で Next.js を再起動
+```
 pm2 restart next-app
+```
 
-sudo nano /etc/nginx/sites-available/next-app
 
-server {
-    listen 80;
-    server_name 49.212.162.72;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-
-# Nginx の設定を有効化
+### Nginx の設定を有効化
+```
 sudo ln -s /etc/nginx/sites-available/next-app /etc/nginx/sites-enabled/
-# ③ 設定チェック
+```
+
+###  設定チェック
+```
 sudo nginx -t
 
 sudo systemctl restart nginx
@@ -142,7 +132,7 @@ sudo tail -f /var/log/nginx/error.log
 
 sudo tail -n 100 /var/log/nginx/access.log
 sudo tail -n 100 /var/log/nginx/error.log
-
+```
 
 ## リスクマネージメント
 
@@ -162,19 +152,13 @@ DDos攻撃：Cloudflareにデプロイで対応。
 
 
 
-npx prisma migrate dev --name add-author-to-article
-npx prisma generate
-
-npx prisma migrate deploy
-
-
 ## 再起動法
+```
 :~/mametisiki/my-next-app
 npm install(必要があれば)
 pm2 stop next-app
 npm run build
 pm2 restart next-app
-
+```
 
 ## 疑問
-APIをapiディレクトリに分ける必要はあるのか。例えば[id]のページとか。
