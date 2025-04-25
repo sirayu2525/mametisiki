@@ -102,16 +102,16 @@ pm2 list
 pm2 logs next-app
 
 
-# 1️⃣ 最新のコードを取得（Git を使っている場合）
+## 1️⃣ 最新のコードを取得（Git を使っている場合）
 git pull origin main  # または `git pull origin master`
 
-# 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
+## 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
 npm install  # 必要に応じて実行
 
-# 3️⃣ Next.js を再ビルド
+## 3️⃣ Next.js を再ビルド
 npm run build
 
-# 4️⃣ PM2 で Next.js を再起動
+## 4️⃣ PM2 で Next.js を再起動
 pm2 restart next-app
 
 sudo nano /etc/nginx/sites-available/next-app
@@ -130,9 +130,9 @@ server {
     }
 }
 
-# Nginx の設定を有効化
+## Nginx の設定を有効化
 sudo ln -s /etc/nginx/sites-available/next-app /etc/nginx/sites-enabled/
-# ③ 設定チェック
+## ③ 設定チェック
 sudo nginx -t
 
 sudo systemctl restart nginx
@@ -176,5 +176,36 @@ npm run build
 pm2 restart next-app
 
 
-## 疑問
+## 疑問や今後の拡張性
 APIをapiディレクトリに分ける必要はあるのか。例えば[id]のページとか。
+
+        <a href="/posts/first-post">Link</a>で書き出されている
+
+        Linkの中にaタグを入れる理由
+
+        <Link href="">: クライアントサイドで遷移させるため
+        <a>: SEO対策 aタグだとBotに理解してもらうため(hrefは不要)
+とあるんだけどまじ？
+
+TanStack Query (React Query)
+これでArticleの最新情報を取得できるのでは？
+
+https://zenn.dev/uhyo/articles/react-server-components-multi-stage
+クソわかりやすいRSCの説明
+状態管理を使うという意味(=ブラウザの処理を必要とする)でのユーザー操作。このユーザー操作が必要なコンポーネントがstage1
+それ以外がstage0とする。
+stage0はリクエスト時に変わるものもあれば、変わらずビルド時にキャッシュされているものもある。
+SSR（サーバーサイドレンダリング）という用語の定義をもう一度思い出して欲しいのだが、
+最初の初期表示のみサーバーで全ての描画を終え、そのあとは普通のSPAであった。
+RSC以降のSSRはそのstage0,stage1（stage1は初期表示）をサーバー、stage1をクライアント側で行うということになったのだ。
+
+一つの疑問の解消がこの記事でできた。この記事に「App Routerでは、ビルド時に「stage 0のコンポーネントを実際に実行してみて、リクエスト時の情報を取得しようとしたかどうか」を見て判断する」とある。私はハムバスの制作において、データフェッチの時にリロードしても更新されなかったのはリクエスト情報を必要としていないコンポーネントだったからなのか。
+
+あれでも、「fetchを使用した場合はキャッシュ関連のオプションを見て判断されます。cache: 'no-cache'もrevalidateも指定されていなければ永遠にキャッシュ可能と見なされ、ビルド時に取得されたデータがずっと使用されます。これらのオプションが指定されていた場合はビルド時に取得したデータをずっと使うわけにはいきませんから、ランタイムに（リクエスト時に）stage 0の実行が必要であると判断されます。」ともあるぞ？
+
+apiディレクトリに分ける意味あんまない気がする。apiディレクトリを作るとき、クライアントからアクセスしたい時だと思うから。普通にフェッチする関数（コンポーネント）を作ってどっかのファイルに置いておけばいい気がする。
+
+import "server-only";をデータフェッチのコンポーネントに入れておく
+
+並列にデータフェッチができているかの確認
+
