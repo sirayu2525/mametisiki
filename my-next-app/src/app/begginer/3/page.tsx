@@ -8,6 +8,7 @@ export default function AdmissionSchedulePage() {
     <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
       <section>
         <h1 className="text-3xl font-bold mb-4">合格後のスケジュール・各手続きの手順</h1>
+        <p>※注意！この記事の内容は去年(2025年)のものです！今年になって変わった部分もあるので、最新の情報は新入生ナビ(https://www.omu.ac.jp/freshers/)や郵送された資料を見てください！</p>
         <ul className="list-disc list-inside space-y-1">
           <li>3/9〜3/15 入学手続き</li>
           <li>3/25〜3/31 情報サービス利用手続き</li>
