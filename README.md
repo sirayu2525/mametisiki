@@ -167,6 +167,11 @@ npm run build
 pm2 restart next-app
 ```
 
+1行で実行する場合は、コマンドの間を `&&` でつなぐこと。
+```
+pm2 stop next-app && npm run build && pm2 restart next-app
+```
+
 
 ## 疑問や今後の拡張性
 APIをapiディレクトリに分ける必要はあるのか。例えば[id]のページとか。
