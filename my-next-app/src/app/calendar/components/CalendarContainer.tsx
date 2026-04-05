@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import WeekSelector from "./WeekSelector";
 import ViewToggle from "./ViewToggle";
 import FilterPanel from "./FilterPanel";
@@ -53,83 +53,123 @@ export default function CalendarContainer({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
 
+  // リクエストキャンセル用
+  const eventsAbortRef = useRef<AbortController | null>(null);
+  const searchAbortRef = useRef<AbortController | null>(null);
+
   // 検索実行
   const handleSearch = useCallback(() => {
     setAppliedSearchQuery(searchQuery);
   }, [searchQuery]);
 
-  // イベント取得
-  const fetchEvents = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const weekEnd = new Date(currentWeek);
-      weekEnd.setDate(weekEnd.getDate() + 6);
-
-      const params = new URLSearchParams({
-        weekStart: currentWeek.toISOString().split("T")[0],
-        weekEnd: weekEnd.toISOString().split("T")[0],
-        isWeekend: String(viewMode === "weekend"),
-      });
-
-      if (selectedCampus) {
-        params.set("campus", selectedCampus);
-      }
-      if (selectedHashtags.length > 0) {
-        params.set("hashtags", selectedHashtags.join(","));
-      }
-      if (appliedSearchQuery.trim()) {
-        params.set("q", appliedSearchQuery.trim());
-      }
-
-      const res = await fetch(`/api/calendar/events?${params}`);
-      const data = await res.json();
-      setEvents(data.events || []);
-    } catch (error) {
-      console.error("Failed to fetch events:", error);
-      setEvents([]);
-    } finally {
-      setIsLoading(false);
+  // イベント取得（週・表示モード・フィルター変更時）
+  useEffect(() => {
+    // 前回のリクエストをキャンセル
+    if (eventsAbortRef.current) {
+      eventsAbortRef.current.abort();
     }
+    const abortController = new AbortController();
+    eventsAbortRef.current = abortController;
+
+    const fetchEvents = async () => {
+      setIsLoading(true);
+      try {
+        const weekEnd = new Date(currentWeek);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+
+        const params = new URLSearchParams({
+          weekStart: currentWeek.toISOString().split("T")[0],
+          weekEnd: weekEnd.toISOString().split("T")[0],
+          isWeekend: String(viewMode === "weekend"),
+        });
+
+        if (selectedCampus) {
+          params.set("campus", selectedCampus);
+        }
+        if (selectedHashtags.length > 0) {
+          params.set("hashtags", selectedHashtags.join(","));
+        }
+        if (appliedSearchQuery.trim()) {
+          params.set("q", appliedSearchQuery.trim());
+        }
+
+        const res = await fetch(`/api/calendar/events?${params}`, {
+          signal: abortController.signal,
+          cache: "no-store",
+        });
+        const data = await res.json();
+        setEvents(data.events || []);
+      } catch (error) {
+        // キャンセルされた場合は無視
+        if (error instanceof Error && error.name === "AbortError") {
+          return;
+        }
+        console.error("Failed to fetch events:", error);
+        setEvents([]);
+      } finally {
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchEvents();
+
+    return () => {
+      abortController.abort();
+    };
   }, [currentWeek, viewMode, selectedCampus, selectedHashtags, appliedSearchQuery]);
 
   // 検索実行（検索クエリ、キャンパス、タグのいずれかがある場合）
-  const fetchSearchResults = useCallback(async () => {
+  useEffect(() => {
     // フィルターが何もない場合は結果をクリア
     if (!appliedSearchQuery.trim() && !selectedCampus && selectedHashtags.length === 0) {
       setSearchResults(null);
       return;
     }
 
-    try {
-      const params = new URLSearchParams();
-      if (appliedSearchQuery.trim()) {
-        params.set("q", appliedSearchQuery);
-      }
-      if (selectedCampus) {
-        params.set("campus", selectedCampus);
-      }
-      if (selectedHashtags.length > 0) {
-        params.set("hashtags", selectedHashtags.join(","));
-      }
-
-      const res = await fetch(`/api/calendar/events/search?${params}`);
-      const data = await res.json();
-      setSearchResults(data.clubs || []);
-    } catch (error) {
-      console.error("Failed to search:", error);
-      setSearchResults([]);
+    // 前回のリクエストをキャンセル
+    if (searchAbortRef.current) {
+      searchAbortRef.current.abort();
     }
-  }, [appliedSearchQuery, selectedCampus, selectedHashtags]);
+    const abortController = new AbortController();
+    searchAbortRef.current = abortController;
 
-  // イベント取得（週・表示モード・フィルター変更時）
-  useEffect(() => {
-    fetchEvents();
-  }, [fetchEvents]);
+    const fetchSearchResults = async () => {
+      try {
+        const params = new URLSearchParams();
+        if (appliedSearchQuery.trim()) {
+          params.set("q", appliedSearchQuery);
+        }
+        if (selectedCampus) {
+          params.set("campus", selectedCampus);
+        }
+        if (selectedHashtags.length > 0) {
+          params.set("hashtags", selectedHashtags.join(","));
+        }
 
-  // 検索実行（検索クエリ変更時）
-  useEffect(() => {
+        const res = await fetch(`/api/calendar/events/search?${params}`, {
+          signal: abortController.signal,
+          cache: "no-store",
+        });
+        const data = await res.json();
+        setSearchResults(data.clubs || []);
+      } catch (error) {
+        // キャンセルされた場合は無視
+        if (error instanceof Error && error.name === "AbortError") {
+          return;
+        }
+        console.error("Failed to search:", error);
+        setSearchResults([]);
+      }
+    };
+
     fetchSearchResults();
-  }, [fetchSearchResults]);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [appliedSearchQuery, selectedCampus, selectedHashtags]);
 
   return (
     <div className="space-y-4">
