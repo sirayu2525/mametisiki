@@ -193,35 +193,31 @@ export default function CalendarContainer({
         />
       )}
 
-      {/* ローディング */}
-      {isLoading && (
-        <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-        </div>
-      )}
+      {/* カレンダー表示（ローディング中も表示し続ける） */}
+      <div className="relative">
+        {isLoading && (
+          <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-10 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+          </div>
+        )}
+        {viewMode === "weekday" ? (
+          <WeekdayCalendar
+            weekStart={currentWeek}
+            events={events}
+            onClubClick={(clubId) => setSelectedClubId(clubId)}
+          />
+        ) : (
+          <WeekendCalendar
+            weekStart={currentWeek}
+            events={events}
+            onClubClick={(clubId) => setSelectedClubId(clubId)}
+          />
+        )}
+      </div>
 
-      {/* カレンダー表示 */}
-      {!isLoading && (
-        <>
-          {viewMode === "weekday" ? (
-            <WeekdayCalendar
-              weekStart={currentWeek}
-              events={events}
-              onClubClick={(clubId) => setSelectedClubId(clubId)}
-            />
-          ) : (
-            <WeekendCalendar
-              weekStart={currentWeek}
-              events={events}
-              onClubClick={(clubId) => setSelectedClubId(clubId)}
-            />
-          )}
-        </>
-      )}
-
-      {/* イベントがない場合 */}
+      {/* イベントがない場合（ローディング中は表示しない） */}
       {!isLoading && events.length === 0 && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-4 text-gray-500 dark:text-gray-400">
           <p>この週の新歓イベントはありません</p>
         </div>
       )}
