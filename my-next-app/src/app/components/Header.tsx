@@ -52,6 +52,7 @@ export default function Header() {
             <li><Link href="/">Top</Link></li>
             <li><Link href="/articles?page=1">まめちしき一覧</Link></li>
             <li><Link href="/begginer">新入生向け</Link></li>
+            <li><Link href="/calendar" className="text-blue-600 font-medium">新歓カレンダー</Link></li>
             <li>
               <a href="https://x.com/omuichinen" target="_blank" rel="noopener noreferrer" className="hover:underline">
                 Twitter
@@ -73,6 +74,7 @@ export default function Header() {
             <li><Link href="/" onClick={() => setIsOpen(false)}>Top</Link></li>
             <li><Link href="/articles?page=1" onClick={() => setIsOpen(false)}>まめちしき一覧</Link></li>
             <li><Link href="/begginer" onClick={() => setIsOpen(false)}>新入生向け</Link></li>
+            <li><Link href="/calendar" onClick={() => setIsOpen(false)} className="text-blue-600 font-medium">新歓カレンダー</Link></li>
             <li>
               <a href="https://x.com/omuichinen" target="_blank" rel="noopener noreferrer" className="hover:underline">
                 Twitter

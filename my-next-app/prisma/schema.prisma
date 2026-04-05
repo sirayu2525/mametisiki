@@ -17,3 +17,66 @@ model Article {
   tags        String[]
   image       String
 }
+
+// ========== 新歓カレンダー機能 ==========
+
+// 団体情報
+model Club {
+  id            Int          @id @default(autoincrement())
+  name          String
+  image         String?
+  description   String
+  twitterUrl    String?
+  instagramUrl  String?
+  hashtags      String[]
+  createdAt     DateTime     @default(now())
+  welcomeInfo   WelcomeInfo?
+}
+
+// 新歓関連情報
+model WelcomeInfo {
+  id            Int            @id @default(autoincrement())
+  clubId        Int            @unique
+  club          Club           @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  scheduleImage String?
+  scheduleText  String?
+  events        WelcomeEvent[]
+}
+
+// 新歓イベント（場所ごと）
+model WelcomeEvent {
+  id            Int             @id @default(autoincrement())
+  welcomeInfoId Int
+  welcomeInfo   WelcomeInfo     @relation(fields: [welcomeInfoId], references: [id], onDelete: Cascade)
+  campus        Campus
+  schedules     EventSchedule[]
+}
+
+// 開催日程
+model EventSchedule {
+  id             Int          @id @default(autoincrement())
+  welcomeEventId Int
+  welcomeEvent   WelcomeEvent @relation(fields: [welcomeEventId], references: [id], onDelete: Cascade)
+  date           DateTime
+  isWeekend      Boolean
+  periods        Period[]
+  hours          Int[]
+}
+
+enum Campus {
+  NAKAMOZU
+  SUGIMOTO
+  MORINOMIYA
+  OUTSIDE
+  ONLINE
+}
+
+enum Period {
+  PERIOD_1
+  PERIOD_2
+  LUNCH
+  PERIOD_3
+  PERIOD_4
+  PERIOD_5
+  AFTER_SCHOOL
+}

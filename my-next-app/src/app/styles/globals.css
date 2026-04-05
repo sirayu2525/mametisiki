@@ -19,3 +19,8 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* スクロールバー非表示ユーティリティ */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

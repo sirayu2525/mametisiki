@@ -9,14 +9,17 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:seed": "prisma db seed",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "import:csv": "node --import=tsx scripts/importCsv.ts"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
+    "@supabase/supabase-js": "^2.101.1",
     "argon2": "^0.41.1",
+    "csv-parse": "^6.2.1",
     "next": "^15.5.9",
     "prisma": "^6.4.1",
     "probe-image-size": "^7.2.3",
