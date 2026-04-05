@@ -92,15 +92,19 @@ export default function CalendarContainer({
     }
   }, [currentWeek, viewMode, selectedCampus, selectedHashtags, appliedSearchQuery]);
 
-  // 検索実行
+  // 検索実行（検索クエリ、キャンパス、タグのいずれかがある場合）
   const fetchSearchResults = useCallback(async () => {
-    if (!appliedSearchQuery.trim()) {
+    // フィルターが何もない場合は結果をクリア
+    if (!appliedSearchQuery.trim() && !selectedCampus && selectedHashtags.length === 0) {
       setSearchResults(null);
       return;
     }
 
     try {
-      const params = new URLSearchParams({ q: appliedSearchQuery });
+      const params = new URLSearchParams();
+      if (appliedSearchQuery.trim()) {
+        params.set("q", appliedSearchQuery);
+      }
       if (selectedCampus) {
         params.set("campus", selectedCampus);
       }
@@ -181,6 +185,8 @@ export default function CalendarContainer({
           onClose={() => {
             setSearchQuery("");
             setAppliedSearchQuery("");
+            setSelectedCampus(null);
+            setSelectedHashtags([]);
             setSearchResults(null);
           }}
           onClubClick={(clubId) => setSelectedClubId(clubId)}
