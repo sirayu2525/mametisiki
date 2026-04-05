@@ -20,7 +20,7 @@ export default function WeekSelector({
 
     // その月の最初の木曜日を見つける
     const firstOfMonth = new Date(year, thursday.getMonth(), 1);
-    let firstThursday = new Date(firstOfMonth);
+    const firstThursday = new Date(firstOfMonth);
     const dayOfWeek = firstOfMonth.getDay();
     // 木曜日=4
     const daysUntilThursday = (4 - dayOfWeek + 7) % 7;
