@@ -38,6 +38,14 @@ interface ClubData {
   hashtags: string[];
 }
 
+// ローカル日付を "YYYY-MM-DD" 形式で取得（タイムゾーン問題を回避）
+const toLocalDateStr = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 export default function CalendarContainer({
   initialWeekStart,
 }: CalendarContainerProps) {
@@ -78,8 +86,8 @@ export default function CalendarContainer({
         weekEnd.setDate(weekEnd.getDate() + 6);
 
         const params = new URLSearchParams({
-          weekStart: currentWeek.toISOString().split("T")[0],
-          weekEnd: weekEnd.toISOString().split("T")[0],
+          weekStart: toLocalDateStr(currentWeek),
+          weekEnd: toLocalDateStr(weekEnd),
           isWeekend: String(viewMode === "weekend"),
         });
 
