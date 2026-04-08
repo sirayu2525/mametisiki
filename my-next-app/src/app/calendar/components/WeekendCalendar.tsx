@@ -101,13 +101,23 @@ export default function WeekendCalendar({
   const sunday = new Date(weekStart);
   sunday.setDate(sunday.getDate() + 6);
 
+  // ローカル日付を "YYYY-MM-DD" 形式で取得（タイムゾーン問題を回避）
+  const toLocalDateStr = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   // 日付ごとにイベントをグループ化し、時間範囲を計算
   const getEventsForDay = (targetDate: Date): EventBlock[] => {
-    const targetDateStr = targetDate.toISOString().split("T")[0];
+    const targetDateStr = toLocalDateStr(targetDate);
 
     const dayEvents = events.filter((event) => {
-      const eventDate = new Date(event.date).toISOString().split("T")[0];
-      return eventDate === targetDateStr;
+      // DBから来る日付はISO文字列なので、ローカル日付に変換して比較
+      const eventDate = new Date(event.date);
+      const eventDateStr = toLocalDateStr(eventDate);
+      return eventDateStr === targetDateStr;
     });
 
     // 同じ団体・同じ日のイベントをまとめる
