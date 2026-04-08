@@ -2,6 +2,16 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/../lib/prisma";
 import { Campus } from "@prisma/client";
 
+// Fisher-Yates シャッフル
+function shuffle<T>(array: T[]): T[] {
+  const result = [...array];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const weekStart = url.searchParams.get("weekStart");
@@ -69,11 +79,8 @@ export async function GET(request: Request) {
     },
   });
 
-  // ランダムシャッフル
-  const shuffled = schedules.sort(() => Math.random() - 0.5);
-
-  // レスポンス用にフラット化
-  const events = shuffled.map((schedule) => ({
+  // レスポンス用にフラット化してシャッフル
+  const events = shuffle(schedules.map((schedule) => ({
     scheduleId: schedule.id,
     date: schedule.date,
     isWeekend: schedule.isWeekend,
@@ -81,7 +88,7 @@ export async function GET(request: Request) {
     hours: schedule.hours,
     campus: schedule.welcomeEvent.campus,
     club: schedule.welcomeEvent.welcomeInfo.club,
-  }));
+  })));
 
   return NextResponse.json({ events });
 }
