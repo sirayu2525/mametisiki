@@ -12,7 +12,8 @@ import ClubDetailModal from "./ClubDetailModal";
 import { PREDEFINED_HASHTAGS, CAMPUSES } from "../config";
 
 interface CalendarContainerProps {
-  initialWeekStart: Date;
+  initialWeekStart: string;
+  initialEvents?: EventData[];
 }
 
 interface EventData {
@@ -48,15 +49,18 @@ const toLocalDateStr = (date: Date): string => {
 
 export default function CalendarContainer({
   initialWeekStart,
+  initialEvents,
 }: CalendarContainerProps) {
-  const [currentWeek, setCurrentWeek] = useState(new Date(initialWeekStart));
+  const [currentWeek, setCurrentWeek] = useState(
+    () => new Date(initialWeekStart)
+  );
   const [viewMode, setViewMode] = useState<"weekday" | "weekend">("weekday");
   const [selectedCampus, setSelectedCampus] = useState<string | null>(null);
   const [selectedHashtags, setSelectedHashtags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [appliedSearchQuery, setAppliedSearchQuery] = useState("");
 
-  const [events, setEvents] = useState<EventData[]>([]);
+  const [events, setEvents] = useState<EventData[]>(initialEvents || []);
   const [searchResults, setSearchResults] = useState<ClubData[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedClubId, setSelectedClubId] = useState<number | null>(null);
@@ -70,8 +74,22 @@ export default function CalendarContainer({
     setAppliedSearchQuery(searchQuery);
   }, [searchQuery]);
 
+  const didUseInitialEvents = useRef(false);
+
   // イベント取得（週・表示モード・フィルター変更時）
   useEffect(() => {
+    const isInitialParams =
+      currentWeek.getTime() === new Date(initialWeekStart).getTime() &&
+      viewMode === "weekday" &&
+      !selectedCampus &&
+      selectedHashtags.length === 0 &&
+      !appliedSearchQuery.trim();
+
+    if (!didUseInitialEvents.current && initialEvents && isInitialParams) {
+      didUseInitialEvents.current = true;
+      return;
+    }
+
     // 前回のリクエストをキャンセル
     if (eventsAbortRef.current) {
       eventsAbortRef.current.abort();
@@ -126,7 +144,15 @@ export default function CalendarContainer({
     return () => {
       abortController.abort();
     };
-  }, [currentWeek, viewMode, selectedCampus, selectedHashtags, appliedSearchQuery]);
+  }, [
+    currentWeek,
+    viewMode,
+    selectedCampus,
+    selectedHashtags,
+    appliedSearchQuery,
+    initialWeekStart,
+    initialEvents,
+  ]);
 
   // 検索実行（検索クエリ、キャンパス、タグのいずれかがある場合）
   useEffect(() => {
