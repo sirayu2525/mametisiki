@@ -29,6 +29,19 @@ export async function GET(request: Request) {
     );
   }
 
+  // "YYYY-MM-DD" 形式の文字列をローカル時間のDateに変換
+  // new Date("YYYY-MM-DD") はUTCとして解釈されるため、ローカル時間に変換する
+  const parseLocalDate = (dateStr: string): Date => {
+    const [year, month, day] = dateStr.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  // 週の開始日（ローカル時間の0:00）
+  const weekStartDate = parseLocalDate(weekStart);
+  // 週の終了日（ローカル時間の23:59:59.999）
+  const weekEndDate = parseLocalDate(weekEnd);
+  weekEndDate.setHours(23, 59, 59, 999);
+
   // ハッシュタグをパース（カンマ区切り）
   const hashtags = hashtagsParam
     ? hashtagsParam.split(",").filter((t) => t.trim())
@@ -38,8 +51,8 @@ export async function GET(request: Request) {
   const schedules = await prisma.eventSchedule.findMany({
     where: {
       date: {
-        gte: new Date(weekStart),
-        lte: new Date(weekEnd),
+        gte: weekStartDate,
+        lte: weekEndDate,
       },
       ...(isWeekend !== null && { isWeekend: isWeekend === "true" }),
       welcomeEvent: {
