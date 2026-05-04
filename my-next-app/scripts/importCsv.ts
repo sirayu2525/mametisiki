@@ -10,17 +10,36 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// 平日の日付リスト (2026年4月)
-const WEEKDAY_DATES = [
-  "4/1", "4/2", "4/3", "4/6", "4/7", "4/8", "4/9", "4/10",
-  "4/13", "4/14", "4/15", "4/16", "4/17", "4/20", "4/21",
-  "4/22", "4/23", "4/24", "4/27", "4/28", "4/29", "4/30"
-];
+type ScheduleColumn = {
+  index: number;
+  dateStr: string;
+};
 
-// 土日の日付リスト (2026年4月)
-const WEEKEND_DATES = [
-  "4/4", "4/5", "4/11", "4/12", "4/18", "4/19", "4/25", "4/26"
-];
+type CampusScheduleConfig = {
+  campusIdx?: number;
+  weekdayColumns: ScheduleColumn[];
+  weekendColumns: ScheduleColumn[];
+};
+
+type ColumnIndices = {
+  clubName?: number;
+  clubImage?: number;
+  instagram?: number;
+  twitter?: number;
+  scheduleImage?: number;
+  scheduleText?: number;
+  description?: number;
+  hashtags?: number;
+  campus1?: number;
+  campus2?: number;
+  campus3?: number;
+  weekday1Columns: ScheduleColumn[];
+  weekday2Columns: ScheduleColumn[];
+  weekday3Columns: ScheduleColumn[];
+  weekend1Columns: ScheduleColumn[];
+  weekend2Columns: ScheduleColumn[];
+  weekend3Columns: ScheduleColumn[];
+};
 
 // 時限の表記揺れ吸収
 const PERIOD_MAPPING: Record<string, Period> = {
@@ -137,7 +156,7 @@ function parsePeriods(periodStr: string): Period[] {
   if (!periodStr || periodStr.trim() === "") return [];
 
   const periods: Period[] = [];
-  const parts = periodStr.split(",").map(s => s.trim());
+  const parts = periodStr.split(/[,、]/).map(s => s.trim());
 
   for (const part of parts) {
     const period = PERIOD_MAPPING[part];
@@ -154,7 +173,7 @@ function parseHours(hourStr: string): number[] {
   if (!hourStr || hourStr.trim() === "") return [];
 
   const hours: number[] = [];
-  const parts = hourStr.split(",").map(s => s.trim());
+  const parts = hourStr.split(/[,、]/).map(s => s.trim());
 
   for (const part of parts) {
     // "9:00" や "9" を解析
@@ -176,15 +195,47 @@ function parseHashtags(hashtagStr: string): string[] {
   return hashtagStr.split(",").map(s => s.trim()).filter(s => s !== "");
 }
 
+function getCell(row: string[], index?: number): string {
+  return index === undefined ? "" : row[index] || "";
+}
+
 // 日付文字列をDateに変換
 function parseDate(dateStr: string, year: number = 2026): Date {
   const [month, day] = dateStr.split("/").map(Number);
   return new Date(year, month - 1, day);
 }
 
+function parseScheduleHeader(header: string):
+  | { place: 1 | 2 | 3; kind: "weekday" | "weekend"; dateStr: string }
+  | null {
+  const placeMatch = header.match(/場所([①②③])/);
+  const dateMatch = header.match(/\[(\d{1,2}\/\d{1,2})\(/);
+
+  if (!placeMatch || !dateMatch) return null;
+
+  const placeMap = { "①": 1, "②": 2, "③": 3 } as const;
+  const place = placeMap[placeMatch[1] as keyof typeof placeMap];
+  const kind = header.includes("（平日）") ? "weekday" : header.includes("（土日）") ? "weekend" : null;
+
+  if (!place || !kind) return null;
+
+  return {
+    place,
+    kind,
+    dateStr: dateMatch[1],
+  };
+}
+
 // CSVのヘッダーからインデックスを取得するヘルパー
-function getColumnIndices(headers: string[]) {
-  const indices: Record<string, number> = {};
+function getColumnIndices(headers: string[]): ColumnIndices {
+  const indices: ColumnIndices = {
+    weekday1Columns: [],
+    weekday2Columns: [],
+    weekday3Columns: [],
+    weekend1Columns: [],
+    weekend2Columns: [],
+    weekend3Columns: [],
+  };
 
   headers.forEach((header, index) => {
     // 基本情報
@@ -201,21 +252,24 @@ function getColumnIndices(headers: string[]) {
     if (header === "新歓の開催場所①を入力") indices.campus1 = index;
     if (header === "新歓の開催場所を入力②") indices.campus2 = index;
     if (header === "新歓の開催場所を入力③") indices.campus3 = index;
+
+    const scheduleHeader = parseScheduleHeader(header);
+    if (scheduleHeader) {
+      const key = `${scheduleHeader.kind}${scheduleHeader.place}Columns` as keyof Pick<
+        ColumnIndices,
+        | "weekday1Columns"
+        | "weekday2Columns"
+        | "weekday3Columns"
+        | "weekend1Columns"
+        | "weekend2Columns"
+        | "weekend3Columns"
+      >;
+      indices[key].push({
+        index,
+        dateStr: scheduleHeader.dateStr,
+      });
+    }
   });
-
-  // 平日日程のインデックス（場所①）
-  indices.weekday1Start = headers.findIndex(h => h.includes("場所①での新歓日程を入力（平日）"));
-
-  // 平日日程のインデックス（場所②）
-  indices.weekday2Start = headers.findIndex(h => h.includes("場所②での新歓日程を入力（平日）"));
-
-  // 平日日程のインデックス（場所③）
-  indices.weekday3Start = headers.findIndex(h => h.includes("場所③での新歓日程を入力（平日）"));
-
-  // 土日日程のインデックス
-  indices.weekend1Start = headers.findIndex(h => h.includes("場所①の新歓日程を入力（土日）"));
-  indices.weekend2Start = headers.findIndex(h => h.includes("場所②の新歓日程を入力（土日）"));
-  indices.weekend3Start = headers.findIndex(h => h.includes("場所③の新歓日程を入力（土日）"));
 
   return indices;
 }
@@ -262,6 +316,10 @@ async function importCsv(csvPath: string) {
   const indices = getColumnIndices(headers);
   console.log("Column indices:", indices);
 
+  if (indices.clubName === undefined) {
+    throw new Error("CSV header is missing required column: 団体名");
+  }
+
   for (let rowIndex = 0; rowIndex < dataRows.length; rowIndex++) {
     const row = dataRows[rowIndex];
     const clubName = row[indices.clubName];
@@ -278,7 +336,7 @@ async function importCsv(csvPath: string) {
       let clubImageUrl: string | null = null;
       let scheduleImageUrl: string | null = null;
 
-      const clubImageDriveUrl = row[indices.clubImage];
+      const clubImageDriveUrl = getCell(row, indices.clubImage);
       if (clubImageDriveUrl) {
         console.log("  Uploading club image...");
         clubImageUrl = await uploadImageToSupabase(
@@ -287,7 +345,7 @@ async function importCsv(csvPath: string) {
         );
       }
 
-      const scheduleImageDriveUrl = row[indices.scheduleImage];
+      const scheduleImageDriveUrl = getCell(row, indices.scheduleImage);
       if (scheduleImageDriveUrl) {
         // 複数画像がカンマ区切りの場合は最初の1枚のみ
         const firstImageUrl = scheduleImageDriveUrl.split(",")[0].trim();
@@ -299,16 +357,16 @@ async function importCsv(csvPath: string) {
       }
 
       // 2. ハッシュタグをパース
-      const hashtags = parseHashtags(row[indices.hashtags] || "");
+      const hashtags = parseHashtags(getCell(row, indices.hashtags));
 
       // 3. 団体を作成
       const club = await prisma.club.create({
         data: {
           name: clubName,
-          description: row[indices.description] || "",
+          description: getCell(row, indices.description),
           image: clubImageUrl,
-          twitterUrl: row[indices.twitter] || null,
-          instagramUrl: row[indices.instagram] || null,
+          twitterUrl: getCell(row, indices.twitter) || null,
+          instagramUrl: getCell(row, indices.instagram) || null,
           hashtags,
         },
       });
@@ -319,19 +377,33 @@ async function importCsv(csvPath: string) {
         data: {
           clubId: club.id,
           scheduleImage: scheduleImageUrl,
-          scheduleText: row[indices.scheduleText] || null,
+          scheduleText: getCell(row, indices.scheduleText) || null,
         },
       });
       console.log(`  Created welcomeInfo: ID=${welcomeInfo.id}`);
 
       // 5. 各場所のイベントとスケジュールを作成
-      const campusConfigs = [
-        { campusIdx: indices.campus1, weekdayStart: indices.weekday1Start, weekendStart: indices.weekend1Start },
-        { campusIdx: indices.campus2, weekdayStart: indices.weekday2Start, weekendStart: indices.weekend2Start },
-        { campusIdx: indices.campus3, weekdayStart: indices.weekday3Start, weekendStart: indices.weekend3Start },
+      const campusConfigs: CampusScheduleConfig[] = [
+        {
+          campusIdx: indices.campus1,
+          weekdayColumns: indices.weekday1Columns,
+          weekendColumns: indices.weekend1Columns,
+        },
+        {
+          campusIdx: indices.campus2,
+          weekdayColumns: indices.weekday2Columns,
+          weekendColumns: indices.weekend2Columns,
+        },
+        {
+          campusIdx: indices.campus3,
+          weekdayColumns: indices.weekday3Columns,
+          weekendColumns: indices.weekend3Columns,
+        },
       ];
 
       for (const config of campusConfigs) {
+        if (config.campusIdx === undefined) continue;
+
         const campusStr = row[config.campusIdx];
         if (!campusStr || campusStr.trim() === "") continue;
 
@@ -351,44 +423,40 @@ async function importCsv(csvPath: string) {
         console.log(`  Created event for ${campusStr}: ID=${welcomeEvent.id}`);
 
         // 平日スケジュール
-        if (config.weekdayStart >= 0) {
-          for (let i = 0; i < WEEKDAY_DATES.length; i++) {
-            const periodStr = row[config.weekdayStart + i];
-            const periods = parsePeriods(periodStr);
+        for (const column of config.weekdayColumns) {
+          const periodStr = row[column.index];
+          const periods = parsePeriods(periodStr);
 
-            if (periods.length > 0) {
-              const date = parseDate(WEEKDAY_DATES[i]);
-              await prisma.eventSchedule.create({
-                data: {
-                  welcomeEventId: welcomeEvent.id,
-                  date,
-                  isWeekend: false,
-                  periods,
-                  hours: [],
-                },
-              });
-            }
+          if (periods.length > 0) {
+            const date = parseDate(column.dateStr);
+            await prisma.eventSchedule.create({
+              data: {
+                welcomeEventId: welcomeEvent.id,
+                date,
+                isWeekend: false,
+                periods,
+                hours: [],
+              },
+            });
           }
         }
 
         // 土日スケジュール
-        if (config.weekendStart >= 0) {
-          for (let i = 0; i < WEEKEND_DATES.length; i++) {
-            const hourStr = row[config.weekendStart + i];
-            const hours = parseHours(hourStr);
+        for (const column of config.weekendColumns) {
+          const hourStr = row[column.index];
+          const hours = parseHours(hourStr);
 
-            if (hours.length > 0) {
-              const date = parseDate(WEEKEND_DATES[i]);
-              await prisma.eventSchedule.create({
-                data: {
-                  welcomeEventId: welcomeEvent.id,
-                  date,
-                  isWeekend: true,
-                  periods: [],
-                  hours,
-                },
-              });
-            }
+          if (hours.length > 0) {
+            const date = parseDate(column.dateStr);
+            await prisma.eventSchedule.create({
+              data: {
+                welcomeEventId: welcomeEvent.id,
+                date,
+                isWeekend: true,
+                periods: [],
+                hours,
+              },
+            });
           }
         }
       }
@@ -403,7 +471,7 @@ async function importCsv(csvPath: string) {
 }
 
 // 実行
-const csvPath = process.argv[2] || "../../提出情報.csv";
+const csvPath = process.argv[2] || "../提出情報.csv";
 importCsv(csvPath)
   .catch(console.error)
   .finally(() => prisma.$disconnect());
