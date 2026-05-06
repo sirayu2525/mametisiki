@@ -75,6 +75,27 @@ Top（トレンドと新着を数件）、記事一覧（新着順と人気順�
 
 ## Memo
 
+## ローカル開発
+```
+cd ~/mametisiki/my-next-app
+bun install
+bun dev
+```
+
+よく使うコマンド
+```
+bun run build
+bun run lint
+bun run start
+```
+
+Bun について
+```
+`bun dev` で `@next/swc-linux-x64-gnu/next-swc.linux-x64-gnu.node`
+読み込み時の `Bus error` が出た場合は、
+`rm -rf node_modules && bun install` を試す。
+```
+
 本番環境にSupabaseマイグレーションするとき、DIRECTURLじゃないとだめだった
 
 ```
@@ -104,20 +125,20 @@ git pull origin main  または `git pull origin master`
 ```
 ### 2️⃣ Next.js の依存関係を更新（変更があった場合のみ）
 ```
-npm install  # 必要に応じて実行
+bun install  # 必要に応じて実行
 ```
 ### 3️⃣ Next.js を再ビルド
 ```
-
-npm run build
+bun run build
 ```
 
 
 ### 4️⃣ PM2 で Next.js を再起動
 ```
-
 pm2 restart next-app
 ```
+
+`pm2 restart next-app` はそのままでよい。PM2 に登録済みのプロセスを再起動するだけなので、ビルドを `bun run build` に変えてもここは変わらない。
 
 
 
