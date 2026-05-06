@@ -13,6 +13,7 @@ import { PREDEFINED_HASHTAGS, CAMPUSES } from "../config";
 
 interface CalendarContainerProps {
   initialWeekStart: string;
+  initialViewMode: "weekday" | "weekend";
   initialEvents?: EventData[];
 }
 
@@ -49,12 +50,15 @@ const toLocalDateStr = (date: Date): string => {
 
 export default function CalendarContainer({
   initialWeekStart,
+  initialViewMode,
   initialEvents,
 }: CalendarContainerProps) {
   const [currentWeek, setCurrentWeek] = useState(
     () => new Date(initialWeekStart)
   );
-  const [viewMode, setViewMode] = useState<"weekday" | "weekend">("weekday");
+  const [viewMode, setViewMode] = useState<"weekday" | "weekend">(
+    initialViewMode
+  );
   const [selectedCampus, setSelectedCampus] = useState<string | null>(null);
   const [selectedHashtags, setSelectedHashtags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,7 +84,7 @@ export default function CalendarContainer({
   useEffect(() => {
     const isInitialParams =
       currentWeek.getTime() === new Date(initialWeekStart).getTime() &&
-      viewMode === "weekday" &&
+      viewMode === initialViewMode &&
       !selectedCampus &&
       selectedHashtags.length === 0 &&
       !appliedSearchQuery.trim();
@@ -151,6 +155,7 @@ export default function CalendarContainer({
     selectedHashtags,
     appliedSearchQuery,
     initialWeekStart,
+    initialViewMode,
     initialEvents,
   ]);
 

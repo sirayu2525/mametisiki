@@ -1,6 +1,15 @@
 import CalendarContainer from "./components/CalendarContainer";
 import { prisma } from "@/../lib/prisma";
 
+const JAPAN_TIME_ZONE = "Asia/Tokyo";
+
+type JapanToday = {
+  year: number;
+  month: number;
+  day: number;
+  weekday: number;
+};
+
 interface EventData {
   scheduleId: number;
   date: string;
@@ -26,18 +35,59 @@ function shuffle<T>(array: T[]): T[] {
   return result;
 }
 
-// 今週の月曜日を取得
-function getCurrentMonday(): Date {
-  const today = new Date();
-  const day = today.getDay();
-  const diff = today.getDate() - day + (day === 0 ? -6 : 1);
-  const monday = new Date(today);
-  monday.setDate(diff);
+function getTodayInJapan(): JapanToday {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: JAPAN_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    weekday: "short",
+  });
+
+  const parts = formatter.formatToParts(new Date());
+  const getPart = (type: "year" | "month" | "day" | "weekday") =>
+    parts.find((part) => part.type === type)?.value ?? "";
+
+  const weekdayMap: Record<string, number> = {
+    Sun: 0,
+    Mon: 1,
+    Tue: 2,
+    Wed: 3,
+    Thu: 4,
+    Fri: 5,
+    Sat: 6,
+  };
+
+  return {
+    year: Number(getPart("year")),
+    month: Number(getPart("month")),
+    day: Number(getPart("day")),
+    weekday: weekdayMap[getPart("weekday")] ?? 0,
+  };
+}
+
+// 今日が属する週の月曜日を取得
+function getCurrentMonday(todayInJapan: JapanToday): Date {
+  const monday = new Date(
+    todayInJapan.year,
+    todayInJapan.month - 1,
+    todayInJapan.day
+  );
+  const diff = todayInJapan.weekday === 0 ? -6 : 1 - todayInJapan.weekday;
+  monday.setDate(monday.getDate() + diff);
   monday.setHours(0, 0, 0, 0);
   return monday;
 }
 
-async function getInitialEvents(weekStart: Date): Promise<EventData[]> {
+function getInitialViewMode(todayInJapan: JapanToday): "weekday" | "weekend" {
+  const { weekday } = todayInJapan;
+  return weekday === 0 || weekday === 6 ? "weekend" : "weekday";
+}
+
+async function getInitialEvents(
+  weekStart: Date,
+  viewMode: "weekday" | "weekend"
+): Promise<EventData[]> {
   const weekEnd = new Date(weekStart);
   weekEnd.setDate(weekEnd.getDate() + 6);
 
@@ -47,7 +97,7 @@ async function getInitialEvents(weekStart: Date): Promise<EventData[]> {
         gte: weekStart,
         lte: weekEnd,
       },
-      isWeekend: false,
+      isWeekend: viewMode === "weekend",
     },
     include: {
       welcomeEvent: {
@@ -83,13 +133,16 @@ async function getInitialEvents(weekStart: Date): Promise<EventData[]> {
 }
 
 export default async function CalendarPage() {
-  const initialWeekStart = getCurrentMonday();
-  const initialEvents = await getInitialEvents(initialWeekStart);
+  const todayInJapan = getTodayInJapan();
+  const initialWeekStart = getCurrentMonday(todayInJapan);
+  const initialViewMode = getInitialViewMode(todayInJapan);
+  const initialEvents = await getInitialEvents(initialWeekStart, initialViewMode);
 
   return (
     <div className="w-full py-6 px-4 sm:px-6 lg:px-8">
       <CalendarContainer
         initialWeekStart={initialWeekStart.toISOString()}
+        initialViewMode={initialViewMode}
         initialEvents={initialEvents}
       />
     </div>
