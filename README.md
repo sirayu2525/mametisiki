@@ -75,6 +75,34 @@ Top（トレンドと新着を数件）、記事一覧（新着順と人気順�
 
 ## Memo
 
+## Bun のインストール
+
+macOS / Linux:
+```
+curl -fsSL https://bun.com/install | bash
+```
+
+Homebrew を使う場合:
+```
+brew install bun
+```
+
+Windows PowerShell:
+```
+powershell -c "irm bun.sh/install.ps1|iex"
+```
+
+インストール後、新しいターミナルを開いて確認する。
+```
+bun --version
+```
+
+`bun: command not found` になる場合は、`~/.bun/bin` に PATH が通っていない可能性がある。zsh の場合は `~/.zshrc` に以下を追加して、ターミナルを開き直す。
+```
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+```
+
 ## ローカル開発
 ```
 cd ~/mametisiki/my-next-app
